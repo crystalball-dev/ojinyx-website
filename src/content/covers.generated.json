@@ -1,0 +1,73 @@
+{
+  "generatedAt": "2026-09-15T23:40:42.377Z",
+  "hero": {
+    "source": "_ANIMATIONS/MAIN/DONE/main_ojinyx.mp4",
+    "hash": "302a586b",
+    "width": 1080,
+    "height": 1080,
+    "duration": 9.2,
+    "hasAudio": true,
+    "poster": "/brand/hero.302a586b.jpg",
+    "mp4": "/brand/hero.302a586b.mp4",
+    "mp4Small": "/brand/hero-sm.302a586b.mp4",
+    "bytes": {
+      "mp4": 3231115,
+      "mp4Small": 1079896,
+      "poster": 122292
+    }
+  },
+  "covers": {
+    "bunny": {
+      "source": "_ANIMATIONS/BUNNY/DONE/BUNNY_ojinyx.mp4",
+      "hash": "e25247cf",
+      "width": 1080,
+      "height": 1080,
+      "duration": 9.13,
+      "hasAudio": true,
+      "poster": "/covers/bunny.e25247cf.jpg",
+      "mp4": "/covers/bunny.e25247cf.mp4",
+      "mp4Small": "/covers/bunny-sm.e25247cf.mp4",
+      "bytes": {
+        "mp4": 3238908,
+        "mp4Small": 726722,
+        "poster": 278396
+      }
+    },
+    "kingdoms": {
+      "source": "_ANIMATIONS/KINGDOMS/DONE/kingdoms_ojinyx.mp4",
+      "hash": "08cd5ebb",
+      "width": 1080,
+      "height": 1080,
+      "duration": 9.97,
+      "hasAudio": true,
+      "poster": "/covers/kingdoms.08cd5ebb.jpg",
+      "mp4": "/covers/kingdoms.08cd5ebb.mp4",
+      "webm": "/covers/kingdoms.08cd5ebb.webm",
+      "mp4Small": "/covers/kingdoms-sm.08cd5ebb.mp4",
+      "bytes": {
+        "mp4": 1933328,
+        "webm": 1187476,
+        "mp4Small": 424214,
+        "poster": 228777
+      }
+    },
+    "war-on-drugs": {
+      "source": "_ANIMATIONS/WAR ON DRUGS/DONE/WAR_ON_DRUGS_ojinyx.mp4",
+      "hash": "c5b53b18",
+      "width": 1080,
+      "height": 1080,
+      "duration": 7.93,
+      "hasAudio": true,
+      "poster": "/covers/war-on-drugs.c5b53b18.jpg",
+      "mp4": "/covers/war-on-drugs.c5b53b18.mp4",
+      "webm": "/covers/war-on-drugs.c5b53b18.webm",
+      "mp4Small": "/covers/war-on-drugs-sm.c5b53b18.mp4",
+      "bytes": {
+        "mp4": 3087206,
+        "webm": 2151333,
+        "mp4Small": 661026,
+        "poster": 105514
+      }
+    }
+  }
+}
