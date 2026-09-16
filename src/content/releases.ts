@@ -89,12 +89,6 @@ export const releases: Release[] = [
     title: "OJINYX",
     type: "album",
     releaseDate: "2024-05-10",
-    /**
-     * No animated cover yet: this is the official square artwork. Drop a clip
-     * into _ANIMATIONS/OJINYX/DONE/, run `npm run covers`, then delete this
-     * `cover` line so the generated poster and video take over.
-     */
-    cover: "/covers/ojinyx.78455f1d.jpg",
     links: {
       spotify: "https://open.spotify.com/album/3SOsbi5Cv2eAvILg31NaT5",
       apple: "https://music.apple.com/album/ojinyx/1743579477",
