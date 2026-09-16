@@ -50,7 +50,7 @@ _ANIMATIONS/
 - `public/covers/<slug>.<hash>.webm` — VP9, only kept when it beats the MP4 by 15 %+
 - `public/covers/<slug>-sm.<hash>.mp4` — 540², silent, for cards
 - `public/covers/<slug>.<hash>.jpg` — poster frame (the palette, OG card and no-JS fallback all come from this)
-- `public/brand/hero.<hash>.*` — same set for the home hero at a lighter 900² profile
+- `public/brand/hero.<hash>.*` — same set for the home hero
 - `src/content/covers.generated.json` — the manifest the site reads
 
 Commit the generated files; they are the deployable assets. A release picks up its artwork automatically when its `slug` in `src/content/releases.ts` matches the slugified folder name. `cover` / `coverVideo` on a release override the generated assets.
@@ -119,8 +119,10 @@ _ANIMATIONS/              source clips (git-ignored)
 Everything marked `TODO(ojinyx)` in `src/content/` is placeholder.
 
 - **Add a release**: put the finished clip in `_ANIMATIONS/<ALBUM>/DONE/`, run `npm run covers`, add an entry with the matching slug to `src/content/releases.ts`. The page, theme, OG image and sitemap entry are generated. Titles go in allcaps. Leave `releaseDate` off until it's announced; undated releases show "Coming soon" and sort to the top.
-- **Real releases already wired**: `WAR ON DRUGS`, `BUNNY`, `KINGDOMS` — dates, types, descriptions, tracklists and streaming links are still `TODO` in `releases.ts`. Titles are plain letters even where the cover art stylises them (the KINGDOMS artwork draws a slashed O).
-- Folder names are slugified for URLs, and accented or Nordic letters are transliterated, so a folder like `KINGDØMS/` still resolves to `/releases/kingdoms`.
+- **Live discography**: `KINGDOMS` (album, 2026-09-11), `THE HILLS` (EP, same day), `WAR ON DRUGS` (EP, 2024-04-12). Dates, tracklists, durations and store links came from the Apple Music catalogue, the Spotify discography and the YouTube Music channel. Only a description per release is still missing.
+- `KINGDOMS` and `THE HILLS` share a release date, so `KINGDOMS` carries `featured: true` to lead the discography and the home page. Remove that flag and ordering falls back to date alone.
+- Titles are plain letters even where the cover art stylises them (the KINGDOMS artwork draws a slashed O). Track titles are normalised to allcaps; the 2024 WAR ON DRUGS metadata predates the convention and reads title case on Apple.
+- Folder names are slugified for URLs, and accented or Nordic letters are transliterated, so a folder like `KINGDØMS/` still resolves to `/releases/kingdoms`. Where a folder is named after the image rather than the record, map it in `ALBUM_SLUGS` in the import script — that is how `_ANIMATIONS/BUNNY/` becomes `/releases/the-hills`, after the EP's lead track.
 - **WIP**: paste public SoundCloud track/playlist URLs into `src/content/wip.ts`.
 - **Merch**: `src/content/merch.ts`; set `site.merchStoreUrl` or per-item `url` to your Bandcamp/Shopify/Big Cartel store.
 - **Bio, socials, email, tagline**: `src/content/site.ts`.
@@ -156,7 +158,8 @@ What runs where:
 - All pages are **statically generated** at build (release themes included). `/wip` is ISR with a 24 h revalidation so SoundCloud titles/art refresh without a redeploy.
 - `/api/contact` is the only server function.
 - Images go through Vercel's image CDN (AVIF/WebP, 31-day cache). `/covers/*`, `/brand/*` and `/merch/*` are served immutable; generated cover and hero files carry a content hash, so re-running `npm run covers` after changing a clip produces new URLs automatically.
-- Video is served as static files from `public/` (range requests work out of the box). Cards use the 540² silent variant; heroes and release pages use the full clip, which starts loading only after the poster has painted.
+- Video is served as static files from `public/` (range requests work out of the box). Cards use the 540² silent variant; heroes and release pages use the full clip, which starts loading only after the poster has painted. Phones get the small variant everywhere.
+- Encoding quality lives in `PROFILES` in the import script. The hero is deliberately expensive: its source is full of fine vertical grain, and a high CRF turns that into mush, so it encodes at native 1080² and costs roughly 8 MB. Raising `crf` to 25 saves about 2 MB and still looks far better than the 900²/27 profile it replaced.
 
 ## Performance notes
 

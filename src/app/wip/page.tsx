@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { ErrorBoundary } from "@/components/error-boundary";
 import { SectionHeading } from "@/components/section-heading";
 import { SoundCloudEmbed } from "@/components/soundcloud-embed";
@@ -31,11 +32,19 @@ export default async function WipPage() {
         ) : null}
       </div>
       <p className="mt-6 max-w-prose text-xl text-muted">
-        Rough mixes, half-ideas and things that may never be finished. Players load on tap, straight from SoundCloud.
+        {wipTracks.length === 0
+          ? "Rough mixes, half-ideas and things that may never be finished. Nothing posted right now."
+          : "Rough mixes, half-ideas and things that may never be finished. Players load on tap, straight from SoundCloud."}
       </p>
 
       {wipTracks.length === 0 ? (
-        <p className="mt-16 text-xl text-muted">Nothing in the oven right now.</p>
+        <p className="mt-16 text-xl text-muted">
+          Everything finished is on the{" "}
+          <Link href="/releases" className="text-accent underline underline-offset-4">
+            releases
+          </Link>{" "}
+          page. New sketches land on SoundCloud first.
+        </p>
       ) : (
         <ul className="mt-14 grid gap-8 lg:grid-cols-2">
           {wipTracks.map((track, i) => {

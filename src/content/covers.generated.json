@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-15T23:40:42.377Z",
+  "generatedAt": "2026-09-16T00:45:15.292Z",
   "hero": {
     "source": "_ANIMATIONS/MAIN/DONE/main_ojinyx.mp4",
     "hash": "302a586b",
@@ -11,28 +11,12 @@
     "mp4": "/brand/hero.302a586b.mp4",
     "mp4Small": "/brand/hero-sm.302a586b.mp4",
     "bytes": {
-      "mp4": 3231115,
-      "mp4Small": 1079896,
-      "poster": 122292
+      "mp4": 8446001,
+      "mp4Small": 1448333,
+      "poster": 156224
     }
   },
   "covers": {
-    "bunny": {
-      "source": "_ANIMATIONS/BUNNY/DONE/BUNNY_ojinyx.mp4",
-      "hash": "e25247cf",
-      "width": 1080,
-      "height": 1080,
-      "duration": 9.13,
-      "hasAudio": true,
-      "poster": "/covers/bunny.e25247cf.jpg",
-      "mp4": "/covers/bunny.e25247cf.mp4",
-      "mp4Small": "/covers/bunny-sm.e25247cf.mp4",
-      "bytes": {
-        "mp4": 3238908,
-        "mp4Small": 726722,
-        "poster": 278396
-      }
-    },
     "kingdoms": {
       "source": "_ANIMATIONS/KINGDOMS/DONE/kingdoms_ojinyx.mp4",
       "hash": "08cd5ebb",
@@ -45,8 +29,8 @@
       "webm": "/covers/kingdoms.08cd5ebb.webm",
       "mp4Small": "/covers/kingdoms-sm.08cd5ebb.mp4",
       "bytes": {
-        "mp4": 1933328,
-        "webm": 1187476,
+        "mp4": 2529622,
+        "webm": 1370718,
         "mp4Small": 424214,
         "poster": 228777
       }
@@ -63,10 +47,26 @@
       "webm": "/covers/war-on-drugs.c5b53b18.webm",
       "mp4Small": "/covers/war-on-drugs-sm.c5b53b18.mp4",
       "bytes": {
-        "mp4": 3087206,
-        "webm": 2151333,
+        "mp4": 4207187,
+        "webm": 2502397,
         "mp4Small": 661026,
         "poster": 105514
+      }
+    },
+    "the-hills": {
+      "source": "_ANIMATIONS/BUNNY/DONE/BUNNY_ojinyx.mp4",
+      "hash": "e25247cf",
+      "width": 1080,
+      "height": 1080,
+      "duration": 9.13,
+      "hasAudio": true,
+      "poster": "/covers/the-hills.e25247cf.jpg",
+      "mp4": "/covers/the-hills.e25247cf.mp4",
+      "mp4Small": "/covers/the-hills-sm.e25247cf.mp4",
+      "bytes": {
+        "mp4": 4341208,
+        "mp4Small": 726722,
+        "poster": 278396
       }
     }
   }

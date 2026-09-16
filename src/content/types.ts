@@ -8,6 +8,7 @@
 export type StreamingService =
   | "spotify"
   | "apple"
+  | "youtubeMusic"
   | "bandcamp"
   | "youtube"
   | "soundcloud"
@@ -18,6 +19,7 @@ export type StreamingService =
 export const STREAMING_SERVICE_LABELS: Record<StreamingService, string> = {
   spotify: "Spotify",
   apple: "Apple Music",
+  youtubeMusic: "YouTube Music",
   bandcamp: "Bandcamp",
   youtube: "YouTube",
   soundcloud: "SoundCloud",
@@ -61,6 +63,12 @@ export interface Release {
   type: ReleaseType;
   /** ISO date, e.g. "2026-03-14". Drives ordering (newest first); omit for "TBA", which sorts to the top. */
   releaseDate?: string;
+  /**
+   * Pin this release to the top of the discography and to the home page hero
+   * slot. Use when two records share a release date and one should lead.
+   * Only the first featured release wins.
+   */
+  featured?: boolean;
   /** Poster override. Defaults to the frame extracted by `npm run covers`. "/covers/x.jpg" under /public or an absolute https URL. */
   cover?: string;
   /** Animated cover override. Defaults to the clip imported by `npm run covers`. */

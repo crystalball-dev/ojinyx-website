@@ -37,10 +37,22 @@ const MANIFEST = path.join(root, "src", "content", "covers.generated.json");
 const force = process.argv.includes("--force");
 
 const PROFILES = {
-  cover: { size: 1080, crf: 24, smallCrf: 26 },
-  // The hero fills ≤100svh; 900² covers most desktops, and the noisy brand
-  // clip is expensive per pixel, so trade a little sharpness for bytes.
-  hero: { size: 900, crf: 27, smallCrf: 28 },
+  // Cover art is the point of a release page, so keep it close to the master.
+  cover: { size: 1080, crf: 22, smallCrf: 26 },
+  // The hero is the first thing anyone sees and its source is full of fine
+  // vertical grain, which is exactly what a high CRF smears into mush. Encode
+  // at native resolution and spend the bytes; phones still get the 540²
+  // variant. Raise `crf` if the file needs to be smaller — 25 costs about
+  // 2 MB less and is still far sharper than the 900²/27 this replaced.
+  hero: { size: 1080, crf: 23, smallCrf: 26 },
+};
+
+/**
+ * Artwork folders are named after the image, not always the record. Map any
+ * that differ to the release slug in src/content/releases.ts.
+ */
+const ALBUM_SLUGS = {
+  BUNNY: "the-hills", // the rabbit artwork is THE HILLS EP, after its lead track
 };
 
 // ---------------------------------------------------------------------------
@@ -261,7 +273,7 @@ for (const album of albums) {
     continue;
   }
   const isHero = album.toUpperCase() === "MAIN";
-  const slug = isHero ? "hero" : slugify(album);
+  const slug = isHero ? "hero" : (ALBUM_SLUGS[album.toUpperCase()] ?? slugify(album));
   console.log(`- ${album} → ${isHero ? "brand/hero" : `covers/${slug}`}  (${path.basename(source)})`);
   const previous = isHero ? manifest.hero : manifest.covers[slug];
   const entry = await encode(source, isHero ? BRAND : COVERS, slug, isHero ? PROFILES.hero : PROFILES.cover, await findPosterOverride(doneDir), previous);

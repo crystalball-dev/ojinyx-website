@@ -14,8 +14,18 @@ export const RELEASE_TYPE_LABEL: Record<ReleaseType, string> = {
 /** Undated releases are treated as upcoming: they sort to the top, keeping their order in releases.ts. */
 const sortKey = (r: Release) => r.releaseDate ?? "9999-99-99";
 
-/** Newest first. */
-export const sortedReleases: Release[] = [...releases].sort((a, b) => sortKey(b).localeCompare(sortKey(a)));
+/**
+ * Newest first, except that a `featured` release is pinned to the front.
+ * Two records can share a release date, so the date alone can't decide which
+ * one leads.
+ */
+export const sortedReleases: Release[] = (() => {
+  const byDate = [...releases].sort((a, b) => sortKey(b).localeCompare(sortKey(a)));
+  const featuredIndex = byDate.findIndex((r) => r.featured);
+  if (featuredIndex <= 0) return byDate;
+  const [featured] = byDate.splice(featuredIndex, 1);
+  return [featured, ...byDate];
+})();
 
 export const latestRelease: Release | undefined = sortedReleases[0];
 
@@ -60,7 +70,17 @@ export interface StreamLink {
   href: string;
 }
 
-const SERVICE_ORDER: StreamingService[] = ["spotify", "apple", "bandcamp", "youtube", "soundcloud", "tidal", "deezer", "amazon"];
+const SERVICE_ORDER: StreamingService[] = [
+  "spotify",
+  "apple",
+  "youtubeMusic",
+  "bandcamp",
+  "youtube",
+  "soundcloud",
+  "tidal",
+  "deezer",
+  "amazon",
+];
 
 /** Only well-formed https links, in a stable display order. */
 export function streamLinks(release: Release): StreamLink[] {

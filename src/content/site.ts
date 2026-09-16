@@ -42,14 +42,16 @@ export const site = {
   soundcloudProfile: "https://soundcloud.com/ojinyx",
   /** External store for merch. Leave empty to show "coming soon" on every item. */
   merchStoreUrl: "",
-  /** Genre tags shown in the about section and used in structured data. TODO(ojinyx): confirm. */
-  genres: ["electronic", "alt-pop", "noise"],
+  /** Genre tags shown in the about section and used in structured data. */
+  genres: ["Electronic", "Hip Hop & Rap", "Experimental"],
+  /** Artist profiles. Entries with an empty href are dropped automatically. */
   socials: [
-    { label: "Instagram", href: "https://instagram.com/ojinyx" },
+    { label: "Spotify", href: "https://open.spotify.com/artist/3mpVwDRoOxK71JARKm0Tm0" },
+    { label: "Apple Music", href: "https://music.apple.com/artist/ojinyx/1556812806" },
+    { label: "YouTube Music", href: "https://music.youtube.com/channel/UCil1y5ifGKFxhtPgGPhz1-A" },
     { label: "SoundCloud", href: "https://soundcloud.com/ojinyx" },
-    { label: "Spotify", href: "" },
+    { label: "Instagram", href: "https://instagram.com/ojinyx" },
     { label: "Bandcamp", href: "" },
-    { label: "YouTube", href: "" },
     { label: "TikTok", href: "" },
   ].filter((s): s is SocialLink => Boolean(s.href)),
 };
