@@ -1,0 +1,8 @@
+# Source artwork: ~130 MB of master videos and project files. `npm run covers`
+# turns these into the web-ready assets under public/, which ARE deployed.
+# Nothing at build or runtime reads this folder.
+_ANIMATIONS
+
+# Local-only tooling
+.claude
+scratchpad
