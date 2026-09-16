@@ -6,3 +6,6 @@ _ANIMATIONS
 # Local-only tooling
 .claude
 scratchpad
+
+# generated merch artwork (deliverables, not site assets)
+merch-art
