@@ -24,12 +24,9 @@ export const site = {
   /** SEO description (~150 chars). */
   description:
     "ojinyx — independent music project, self-released through OPERATION FAIRWAY. Releases, works in progress, merch and contact.",
-  /**
-   * Bio paragraphs. American English throughout.
-   * TODO(ojinyx): the first line is still placeholder wording — rewrite it.
-   */
+  /** Bio paragraphs, shown in the home page About section and in search structured data. American English throughout. */
   bio: [
-    "ojinyx is an independent music project, written, recorded and self-released through OPERATION FAIRWAY.",
+    "ojinyx is an independent music project, written, recorded and self-released through OPERATION FAIRWAY. Every track is boldly experimental — crossing genre lines without regard for expectations. Enjoy responsibly.",
     "Every record is its own world. The colors on this site come straight from the covers.",
   ],
   /** Closing line of the bio, set as a refrain. Keep verbatim. */
