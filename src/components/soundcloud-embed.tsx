@@ -96,7 +96,7 @@ export function SoundCloudEmbed({ url, title, author, thumbnail, note, accent = 
 
       <div className="flex items-start justify-between gap-4 p-5">
         <div className="min-w-0">
-          <h3 className="display truncate text-xl sm:text-2xl">{title}</h3>
+          <h3 className="display truncate text-xl uppercase sm:text-2xl">{title}</h3>
           {author ? <p className="label mt-1 text-muted">{author}</p> : null}
           {note ? <p className="mt-2 text-sm text-muted">{note}</p> : null}
           {!resolved ? <p className="label mt-2 text-muted">details unavailable · link still works</p> : null}

@@ -95,9 +95,14 @@ async function probe(file) {
 // ---------------------------------------------------------------------------
 // helpers
 
+// Folder name → URL slug. Nordic letters used in the artwork (KINGDØMS) are
+// transliterated rather than dropped, so the folder can be spelled either way.
+const TRANSLITERATE = { "ø": "o", "æ": "ae", "å": "a", "ß": "ss", "đ": "d", "ł": "l" };
+
 const slugify = (s) =>
   s
     .toLowerCase()
+    .replace(/[øæåßđł]/g, (c) => TRANSLITERATE[c] ?? c)
     .normalize("NFKD")
     .replace(/[^\w\s-]/g, "")
     .trim()

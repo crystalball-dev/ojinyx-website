@@ -3,6 +3,11 @@ import type { Release } from "./types";
 /**
  * Discography.
  * ─────────────────────────────────────────────────────────────────────────
+ * House style: record and song titles are ALWAYS allcaps ("KINGDØMS",
+ * "THE HILLS"). Everything is released through OPERATION FAIRWAY, which is
+ * applied automatically — only set `label` on a release that came out
+ * somewhere else.
+ *
  * Artwork is picked up automatically: `npm run covers` turns
  * _ANIMATIONS/<ALBUM>/DONE/*.mp4 into web-ready clips + a poster frame under
  * /public/covers, keyed by the slugified folder name. The entry here only
@@ -17,7 +22,7 @@ import type { Release } from "./types";
 export const releases: Release[] = [
   {
     slug: "war-on-drugs",
-    title: "War On Drugs",
+    title: "WAR ON DRUGS",
     type: "album", // TODO: album / ep / single
     // releaseDate: "2026-01-01", // TODO
     // description: "…",
@@ -25,14 +30,14 @@ export const releases: Release[] = [
   },
   {
     slug: "bunny",
-    title: "Bunny",
+    title: "BUNNY",
     type: "single", // TODO
     // releaseDate: "2025-01-01", // TODO
     links: {},
   },
   {
     slug: "kingdoms",
-    title: "Kingdoms", // artwork reads KINGDØMS — change to "Kingdøms" if that's the official spelling
+    title: "KINGDØMS",
     type: "album", // TODO
     // releaseDate: "2024-01-01", // TODO
     links: {},

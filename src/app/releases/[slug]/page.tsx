@@ -14,7 +14,16 @@ import { Tracklist } from "@/components/tracklist";
 import { site } from "@/content/site";
 import { getCoverMedia } from "@/lib/covers";
 import { getCoverTheme } from "@/lib/palette";
-import { RELEASE_TYPE_LABEL, adjacentReleases, formatReleaseDate, getRelease, longestWord, releaseYear, sortedReleases } from "@/lib/releases";
+import {
+  RELEASE_TYPE_LABEL,
+  adjacentReleases,
+  formatReleaseDate,
+  getRelease,
+  longestWord,
+  releaseLabel,
+  releaseYear,
+  sortedReleases,
+} from "@/lib/releases";
 import { safeJsonLd } from "@/lib/utils";
 
 type Props = PageProps<"/releases/[slug]">;
@@ -64,6 +73,7 @@ export default async function ReleasePage({ params }: Props) {
   const { prev, next } = adjacentReleases(release.slug);
   const typeLabel = RELEASE_TYPE_LABEL[release.type];
   const upcoming = !release.releaseDate;
+  const imprint = releaseLabel(release);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -75,6 +85,7 @@ export default async function ReleasePage({ params }: Props) {
     description: release.description,
     url: `${site.url}/releases/${release.slug}`,
     byArtist: { "@type": "MusicGroup", name: site.name, url: site.url },
+    recordLabel: { "@type": "Organization", name: imprint },
     numTracks: release.tracks?.length,
     track: release.tracks?.map((t, i) => ({ "@type": "MusicRecording", name: t.title, position: i + 1 })),
   };
@@ -114,8 +125,7 @@ export default async function ReleasePage({ params }: Props) {
 
           <div className="flex flex-col gap-7 md:col-span-7 md:pl-6" style={{ containerType: "inline-size" }}>
             <p className="label text-muted">
-              {typeLabel} · {formatReleaseDate(release.releaseDate)}
-              {release.label ? ` · ${release.label}` : ""}
+              {typeLabel} · {formatReleaseDate(release.releaseDate)} · {imprint}
               {release.catalogNumber ? ` · ${release.catalogNumber}` : ""}
             </p>
             <h1
@@ -132,7 +142,7 @@ export default async function ReleasePage({ params }: Props) {
         {/* Ticker in accent */}
         <div className="bleed mt-20 -rotate-1 bg-accent py-2 text-accent-fg">
           <Marquee
-            items={[release.title, typeLabel, releaseYear(release.releaseDate), site.name, upcoming ? "Coming soon" : "Out now"].map((t) => (
+            items={[release.title, typeLabel.toUpperCase(), releaseYear(release.releaseDate), imprint, upcoming ? "COMING SOON" : "OUT NOW"].map((t) => (
               <span key={t} className="display text-xl md:text-2xl">
                 {t}
               </span>

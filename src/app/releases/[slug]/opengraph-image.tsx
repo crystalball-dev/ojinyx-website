@@ -3,7 +3,7 @@ import { WORDMARK_PATH, WORDMARK_RATIO, WORDMARK_VIEWBOX } from "@/brand/wordmar
 import { site } from "@/content/site";
 import { getCoverMedia } from "@/lib/covers";
 import { getCoverDataUrl, getCoverTheme } from "@/lib/palette";
-import { RELEASE_TYPE_LABEL, formatReleaseDate, getRelease, sortedReleases } from "@/lib/releases";
+import { RELEASE_TYPE_LABEL, formatReleaseDate, getRelease, releaseLabel, sortedReleases } from "@/lib/releases";
 
 export const alt = `Release by ${site.name}`;
 export const size = { width: 1200, height: 630 };
@@ -25,8 +25,8 @@ export default async function Image({ params }: { params: Promise<{ slug: string
   const [{ palette }, coverSrc] = await Promise.all([getCoverTheme(poster, slug), getCoverDataUrl(poster, 560)]);
 
   const subtitle = release
-    ? `${RELEASE_TYPE_LABEL[release.type]} · ${release.releaseDate ? formatReleaseDate(release.releaseDate) : "Coming soon"}`
-    : site.tagline;
+    ? `${RELEASE_TYPE_LABEL[release.type]} · ${release.releaseDate ? formatReleaseDate(release.releaseDate) : "Coming soon"} · ${releaseLabel(release)}`
+    : `${site.tagline} ${site.label}`;
 
   const markWidth = 220;
 

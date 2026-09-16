@@ -12,7 +12,7 @@ export default function ErrorPage({ error, reset }: { error: Error & { digest?: 
 
   return (
     <section className="gutter flex min-h-[70svh] flex-col justify-center gap-8 py-32">
-      <h1 className="display text-[clamp(3rem,10vw,9rem)]">Feedback loop</h1>
+      <h1 className="display text-[clamp(3rem,10vw,9rem)]">ANOMALY</h1>
       <p className="max-w-md text-xl text-muted">Something on this page broke. The rest of the site is fine.</p>
       <div className="flex flex-wrap gap-3">
         <button type="button" onClick={reset} className={pillSolid}>

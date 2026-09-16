@@ -16,7 +16,7 @@ export default function MerchPage() {
   return (
     <div className="gutter pb-24 pt-32 md:pt-40">
       <div className="flex flex-wrap items-end justify-between gap-6">
-        <SectionHeading as="h1" label="Wear the colours" title="Merch" />
+        <SectionHeading as="h1" label="Wear the colours" title="MERCH" />
         {storeUrl ? (
           <a href={storeUrl} target="_blank" rel="noreferrer" className={pillSolid}>
             Open the store <span aria-hidden="true">↗</span>

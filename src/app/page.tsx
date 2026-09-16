@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ViewTransition, type CSSProperties } from "react";
 import { Blobs } from "@/components/blobs";
 import { CoverMedia } from "@/components/cover-media";
+import { LabelBadge } from "@/components/label-badge";
 import { Marquee } from "@/components/marquee";
 import { pillOutline, pillSolid } from "@/components/pill";
 import { PointerGlow } from "@/components/pointer-glow";
@@ -14,7 +15,15 @@ import { Wordmark } from "@/components/wordmark";
 import { site } from "@/content/site";
 import { getCoverMedia, getHeroMedia } from "@/lib/covers";
 import { getCoverTheme } from "@/lib/palette";
-import { RELEASE_TYPE_LABEL, formatReleaseDate, latestRelease, longestWord, releaseYear, sortedReleases } from "@/lib/releases";
+import {
+  RELEASE_TYPE_LABEL,
+  formatReleaseDate,
+  latestRelease,
+  longestWord,
+  releaseLabel,
+  releaseYear,
+  sortedReleases,
+} from "@/lib/releases";
 import { paletteVars } from "@/lib/theme";
 
 export default async function HomePage() {
@@ -29,13 +38,14 @@ export default async function HomePage() {
   const otherMedia = others.map((r) => getCoverMedia(r));
   const otherThemes = await Promise.all(others.map((r, i) => getCoverTheme(otherMedia[i].poster, r.slug)));
 
-  const earliestYear = [...sortedReleases].reverse().find((r) => r.releaseDate)?.releaseDate;
-
   const tickerItems = latest
-    ? latest.releaseDate
-      ? [`New ${RELEASE_TYPE_LABEL[latest.type]}`, latest.title, "Out now", formatReleaseDate(latest.releaseDate), site.tagline]
-      : [`Next ${RELEASE_TYPE_LABEL[latest.type]}`, latest.title, "Coming soon", site.tagline]
-    : [site.name, site.tagline];
+    ? [
+        `${latest.releaseDate ? "NEW" : "NEXT"} ${RELEASE_TYPE_LABEL[latest.type].toUpperCase()}`,
+        latest.title,
+        latest.releaseDate ? "OUT NOW" : "COMING SOON",
+        site.label,
+      ]
+    : [site.name, site.label];
 
   return (
     <>
@@ -51,7 +61,8 @@ export default async function HomePage() {
         <div className="hero-layout relative min-h-[100svh] gap-x-6 gap-y-8 pb-[max(2rem,env(safe-area-inset-bottom))] pt-20 md:pt-24">
           <div className="hero-side-left gutter flex flex-col gap-3">
             <span className="label text-muted">{site.genres.join(" · ")}</span>
-            <p className="display max-w-md text-[clamp(1.25rem,1.9vw,1.75rem)] normal-case tracking-tight">{site.tagline}</p>
+            <p className="display max-w-md text-[clamp(1.25rem,1.9vw,1.75rem)] tracking-tight">{site.tagline}</p>
+            <span className="label text-accent">{site.label}</span>
           </div>
 
           <div className="hero-video-box relative">
@@ -126,7 +137,8 @@ export default async function HomePage() {
             </Reveal>
             <Reveal delay={0.1} className="flex flex-col gap-6">
               <span className="label text-muted">
-                {latest.releaseDate ? "Latest" : "Next"} {RELEASE_TYPE_LABEL[latest.type]} · {formatReleaseDate(latest.releaseDate)}
+                {latest.releaseDate ? "Latest" : "Next"} {RELEASE_TYPE_LABEL[latest.type]} · {formatReleaseDate(latest.releaseDate)} ·{" "}
+                {releaseLabel(latest)}
               </span>
               <div style={{ containerType: "inline-size" }}>
                 <h2
@@ -149,7 +161,7 @@ export default async function HomePage() {
       {/* ── About ──────────────────────────────────────────────────────── */}
       <section className="gutter relative overflow-hidden py-24 md:py-36">
         <p aria-hidden="true" className="display text-outline pointer-events-none absolute -right-8 top-6 select-none text-[clamp(6rem,24vw,26rem)] leading-none opacity-30">
-          Who
+          WHO
         </p>
         <div className="relative grid gap-10 md:grid-cols-12">
           <Reveal className="md:col-span-4">
@@ -169,15 +181,10 @@ export default async function HomePage() {
                 {p}
               </p>
             ))}
-            <div className="mt-2 inline-flex items-center gap-4">
-              {earliestYear ? (
-                <span className="spin-slow display grid size-24 place-items-center rounded-full bg-accent-2 text-center text-[0.6rem] leading-tight text-black">
-                  est.
-                  <br />
-                  {releaseYear(earliestYear)}
-                </span>
-              ) : null}
-              <span className="label text-muted">{site.location}</span>
+            <p className="display mt-2 text-[clamp(1.5rem,3.2vw,2.75rem)] leading-tight text-accent">{site.refrain}</p>
+            <div className="mt-4 flex items-center gap-6">
+              <LabelBadge text={site.label} className="size-28 shrink-0 text-accent-2 md:size-32" />
+              {site.location ? <span className="label text-muted">{site.location}</span> : null}
             </div>
           </Reveal>
         </div>
@@ -187,7 +194,7 @@ export default async function HomePage() {
       {others.length ? (
         <section className="overflow-hidden py-8 md:py-16">
           <Reveal className="gutter flex items-end justify-between gap-6">
-            <SectionHeading label="Discography" title="More" />
+            <SectionHeading label="Discography" title="MORE" />
             <Link href="/releases" className="label mb-3 whitespace-nowrap underline-offset-4 hover:underline">
               All {sortedReleases.length} →
             </Link>
@@ -235,8 +242,8 @@ export default async function HomePage() {
           <ul className="grid gap-4 md:grid-cols-3">
             {[
               { href: "/wip", title: "WIP", text: "Sketches, demos and things that might never come out.", bg: "bg-accent-3 text-white" },
-              { href: "/merch", title: "Merch", text: "Wear the colours.", bg: "bg-accent text-accent-fg" },
-              { href: "/contact", title: "Contact", text: "Bookings, remixes, sync, hello.", bg: "bg-accent-2 text-black" },
+              { href: "/merch", title: "MERCH", text: "Wear the colours.", bg: "bg-accent text-accent-fg" },
+              { href: "/contact", title: "CONTACT", text: "Bookings, remixes, sync, hello.", bg: "bg-accent-2 text-black" },
             ].map((tile, i) => (
               <li key={tile.href}>
                 <Link

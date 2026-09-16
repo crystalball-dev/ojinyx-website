@@ -28,7 +28,7 @@ export function Footer() {
               <ul className="mt-3 flex flex-col gap-1">
                 {site.socials.map((s) => (
                   <li key={s.label}>
-                    <a href={s.href} target="_blank" rel="noreferrer" className="display text-2xl underline-offset-8 hover:underline">
+                    <a href={s.href} target="_blank" rel="noreferrer" className="display text-2xl uppercase underline-offset-8 hover:underline">
                       {s.label} <span aria-hidden="true">↗</span>
                     </a>
                   </li>
@@ -40,15 +40,17 @@ export function Footer() {
           </div>
           <div>
             <p className="label text-muted">Contact</p>
-            <a href={`mailto:${site.email}`} className="display mt-3 inline-block text-2xl underline-offset-8 hover:underline">
+            <a href={`mailto:${site.email}`} className="display mt-3 inline-block break-all text-2xl underline-offset-8 hover:underline">
               {site.email}
             </a>
-            <p className="mt-3 text-muted">{site.location}</p>
+            <p className="label mt-5 text-muted">Released through</p>
+            <p className="display mt-2 text-2xl text-accent">{site.label}</p>
+            {site.location ? <p className="mt-3 text-muted">{site.location}</p> : null}
           </div>
         </div>
 
-        <p className="label mt-14 text-muted">
-          © {year} {site.name}. All rights reserved.
+        <p className="mt-14 text-xs uppercase tracking-[0.14em] text-muted">
+          © {year} <span className="normal-case">{site.name}</span> · {site.label} · All rights reserved.
         </p>
       </div>
     </footer>

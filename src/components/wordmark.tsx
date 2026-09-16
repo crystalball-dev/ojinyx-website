@@ -1,4 +1,5 @@
 import { WORDMARK_PATH, WORDMARK_VIEWBOX } from "@/brand/wordmark";
+import { site } from "@/content/site";
 import { cn } from "@/lib/utils";
 
 interface WordmarkProps {
@@ -20,7 +21,7 @@ export function Wordmark({ className, variant = "fill", decorative = false, stro
       viewBox={WORDMARK_VIEWBOX}
       className={cn("block", className)}
       role={decorative ? undefined : "img"}
-      aria-label={decorative ? undefined : "OJINYX"}
+      aria-label={decorative ? undefined : site.name}
       aria-hidden={decorative || undefined}
       focusable="false"
     >

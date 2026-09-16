@@ -1,4 +1,5 @@
 import { releases } from "@/content/releases";
+import { site } from "@/content/site";
 import { STREAMING_SERVICE_LABELS, type Release, type ReleaseType, type StreamingService } from "@/content/types";
 
 export const RELEASE_TYPE_LABEL: Record<ReleaseType, string> = {
@@ -48,6 +49,11 @@ export function longestWord(title: string): number {
   return Math.max(4, ...title.split(/\s+/).map((w) => w.length));
 }
 
+/** The imprint a release came out on. Everything is OPERATION FAIRWAY unless stated otherwise. */
+export function releaseLabel(release: Release): string {
+  return release.label ?? site.label;
+}
+
 export interface StreamLink {
   service: StreamingService;
   label: string;
@@ -73,5 +79,10 @@ if (process.env.NODE_ENV !== "production") {
     seen.add(r.slug);
     if (!/^[a-z0-9-]+$/.test(r.slug)) console.warn(`[content] release slug "${r.slug}" should be lowercase-hyphenated`);
     if (r.releaseDate && Number.isNaN(new Date(r.releaseDate).getTime())) console.warn(`[content] release "${r.slug}" has an invalid releaseDate`);
+    // House style: record and song titles are allcaps.
+    if (r.title !== r.title.toUpperCase()) console.warn(`[content] release title "${r.title}" should be allcaps`);
+    for (const t of r.tracks ?? []) {
+      if (t.title !== t.title.toUpperCase()) console.warn(`[content] track title "${t.title}" on "${r.slug}" should be allcaps`);
+    }
   }
 }

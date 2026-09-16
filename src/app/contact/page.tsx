@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <div className="gutter pb-24 pt-32 md:pt-40">
-      <SectionHeading as="h1" label="Say hello" title="Contact" />
+      <SectionHeading as="h1" label="Say hello" title="CONTACT" />
 
       <div className="mt-14 grid gap-14 md:grid-cols-12">
         <div className="flex flex-col gap-8 md:col-span-5">
@@ -32,7 +32,7 @@ export default function ContactPage() {
               <ul className="mt-2 flex flex-wrap gap-x-6 gap-y-2">
                 {site.socials.map((s) => (
                   <li key={s.label}>
-                    <a href={s.href} target="_blank" rel="noreferrer" className="display text-xl underline-offset-8 hover:underline">
+                    <a href={s.href} target="_blank" rel="noreferrer" className="display text-xl uppercase underline-offset-8 hover:underline">
                       {s.label} <span aria-hidden="true">↗</span>
                     </a>
                   </li>

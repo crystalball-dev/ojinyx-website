@@ -32,7 +32,8 @@ export default function Image() {
         <svg viewBox={WORDMARK_VIEWBOX} width={markWidth} height={markWidth / WORDMARK_RATIO}>
           <path d={WORDMARK_PATH} fill="#ffffff" />
         </svg>
-        <div style={{ display: "flex", fontSize: 34, letterSpacing: 6, textTransform: "uppercase", opacity: 0.85 }}>{site.tagline}</div>
+        <div style={{ display: "flex", fontSize: 36, opacity: 0.9 }}>{site.tagline}</div>
+        <div style={{ display: "flex", fontSize: 26, letterSpacing: 8, color: "#ff2bd6", fontWeight: 700 }}>{site.label}</div>
       </div>
     ),
     { ...size },

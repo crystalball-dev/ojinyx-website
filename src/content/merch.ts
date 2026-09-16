@@ -6,11 +6,12 @@ import type { MerchItem } from "./types";
  * TODO(ojinyx): replace placeholder items + images in /public/merch. Each
  * item links to `url` (or site.merchStoreUrl when unset). Items with
  * available: false render as "sold out / coming soon" and aren't clickable.
+ * Names follow the house style: record titles in allcaps.
  */
 export const merch: MerchItem[] = [
   {
     id: "tee-bunny",
-    name: "Bunny Tee",
+    name: "BUNNY TEE",
     price: "$35",
     image: "/merch/tee-acid.jpg",
     url: "",
@@ -19,7 +20,7 @@ export const merch: MerchItem[] = [
   },
   {
     id: "hoodie-kingdoms",
-    name: "Kingdoms Hoodie",
+    name: "KINGDØMS HOODIE",
     price: "$70",
     image: "/merch/hoodie-black.jpg",
     url: "",
@@ -28,7 +29,7 @@ export const merch: MerchItem[] = [
   },
   {
     id: "cap-war-on-drugs",
-    name: "War On Drugs Cap",
+    name: "WAR ON DRUGS CAP",
     price: "$28",
     image: "/merch/cap-pink.jpg",
     url: "",
@@ -36,7 +37,7 @@ export const merch: MerchItem[] = [
   },
   {
     id: "poster-set",
-    name: "Cover Art Poster Set (3)",
+    name: "COVER ART POSTER SET (3)",
     price: "$45",
     image: "/merch/poster-set.jpg",
     url: "",

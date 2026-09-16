@@ -29,6 +29,7 @@ export const STREAMING_SERVICE_LABELS: Record<StreamingService, string> = {
 export type ReleaseType = "single" | "ep" | "album" | "remix" | "mixtape" | "live";
 
 export interface Track {
+  /** House style: song titles are allcaps, e.g. "THE HILLS". */
   title: string;
   /** "3:42" style display string. */
   duration?: string;
@@ -55,6 +56,7 @@ export interface Release {
    * picked up automatically ("WAR ON DRUGS" → "war-on-drugs").
    */
   slug: string;
+  /** House style: record titles are allcaps, e.g. "KINGDØMS". */
   title: string;
   type: ReleaseType;
   /** ISO date, e.g. "2026-03-14". Drives ordering (newest first); omit for "TBA", which sorts to the top. */
@@ -71,6 +73,7 @@ export interface Release {
   /** Universal smart link (e.g. song.link / linktr.ee) used as the fallback CTA. */
   smartLink?: string;
   credits?: string[];
+  /** Imprint. Defaults to site.label (OPERATION FAIRWAY); set only for releases that came out elsewhere. */
   label?: string;
   catalogNumber?: string;
 }

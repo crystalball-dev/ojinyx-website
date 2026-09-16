@@ -95,10 +95,12 @@ video {
 /* ──────────────────────────────────────────────────────────────────────────
    Utilities (Tailwind v4 @utility so they compose with variants)
    ────────────────────────────────────────────────────────────────────────── */
+/* House style: record + song titles are written in allcaps in the content
+   files, and the artist name is always lowercase, so nothing here forces a
+   case. What you type is what renders. */
 @utility display {
   font-family: var(--font-display);
   font-weight: 900;
-  text-transform: uppercase;
   letter-spacing: -0.045em;
   line-height: 0.86;
 }

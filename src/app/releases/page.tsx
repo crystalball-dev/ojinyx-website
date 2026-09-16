@@ -13,7 +13,7 @@ export default function ReleasesPage() {
   return (
     <div className="gutter pb-24 pt-32 md:pt-40">
       <div className="flex flex-wrap items-end justify-between gap-6">
-        <SectionHeading as="h1" label={`${sortedReleases.length} ${sortedReleases.length === 1 ? "record" : "records"}`} title="Releases" />
+        <SectionHeading as="h1" label={`${sortedReleases.length} ${sortedReleases.length === 1 ? "record" : "records"}`} title="RELEASES" />
         <p className="label max-w-xs text-muted">Each page is themed from its own artwork — colours extracted at build, no hand-picking.</p>
       </div>
 
