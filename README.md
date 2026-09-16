@@ -111,7 +111,7 @@ public/
   merch/                  product shots (4:5)
 scripts/
   import-covers.mjs       _ANIMATIONS → public/covers + brand + manifest (ffmpeg)
-  generate-placeholders.mjs   placeholder merch shots (delete when you have real photos)
+  make-wordmark-art.mjs   per-record gradient wordmark art + mark-gradients.generated.json
 _ANIMATIONS/              source clips (git-ignored)
 ```
 
@@ -127,7 +127,7 @@ Everything marked `TODO(ojinyx)` in `src/content/` is placeholder.
 - Folder names are slugified for URLs, and accented or Nordic letters are transliterated, so a folder like `KINGDØMS/` still resolves to `/releases/kingdoms`. Where a folder is named after the image rather than the record, map it in `ALBUM_SLUGS` in the import script — that is how `_ANIMATIONS/BUNNY/` becomes `/releases/the-hills`, after the EP's lead track.
 - **WIP is live**: the page reads the latest public uploads from the SoundCloud RSS feed (`feeds.soundcloud.com/users/soundcloud:users:<id>/sounds.rss`, no auth) and revalidates hourly, so posting a track there puts it on the site with no redeploy. `site.wipFeedLimit` caps how many show. `src/content/wip.ts` is now only for pinning a track above the feed or attaching a note; it de-duplicates against the feed. If the feed ever fails the page falls back to whatever is pinned, then to an empty state.
 - WIP titles render exactly as posted on SoundCloud. The allcaps rule covers finished songs and records, not working labels like "DIEHARD, bad vocals".
-- **Merch**: `src/content/merch.ts`; set `site.merchStoreUrl` or per-item `url` to your Bandcamp/Shopify/Big Cartel store.
+- **Merch**: `src/content/merch.ts`, one entry per product, each linking to where it is sold. Currently KINGDOMS on CD via Kunaki at $8. `site.merchStoreUrl` and `site.merchStoreLabel` drive the storefront button (the Kunaki all-products page). Store product photos can go in as-is, white background and all: the card sets them on a light panel and blends the white away. Give image filenames a content hash, since `/merch` is cached immutably.
 - **Bio, socials, email, tagline**: `src/content/site.ts`.
 - Optional per-track `previewUrl` (mp3 under `/public`) renders an inline preview player.
 
@@ -140,7 +140,7 @@ npm install
 npm run dev
 ```
 
-Other scripts: `npm run build` (production build + type check), `npm run lint`, `npm run typecheck`, `npm run covers` (import artwork from `_ANIMATIONS`, see above), `npm run placeholders` (regenerate placeholder merch shots).
+Other scripts: `npm run build` (production build + type check), `npm run lint`, `npm run typecheck`, `npm run covers` (import artwork from `_ANIMATIONS`, see above), `npm run merch-art` (per-record gradient wordmark art, run after `covers`).
 
 ## Deploying to Vercel (existing repo + custom domain)
 

@@ -97,12 +97,15 @@ export interface WipTrack {
 export interface MerchItem {
   id: string;
   name: string;
-  /** Display price string, e.g. "$35" or "€30". */
+  /** Short format line under the name, e.g. "CD", "Vinyl LP", "Tee". */
+  detail?: string;
+  /** Display price string, e.g. "$8". */
   price?: string;
   image?: string;
-  /** External checkout URL (Bandcamp, Shopify, Big Cartel…). */
+  /** External checkout URL (Kunaki, Amazon, Bandcamp…). */
   url?: string;
   available?: boolean;
+  /** Sizes or options, shown after `detail`. */
   variants?: string[];
 }
 

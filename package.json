@@ -8,7 +8,6 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "placeholders": "node scripts/generate-placeholders.mjs",
     "covers": "node scripts/import-covers.mjs",
     "merch-art": "node scripts/make-wordmark-art.mjs"
   },

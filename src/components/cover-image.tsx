@@ -13,6 +13,8 @@ interface CoverImageProps {
   sizes: string;
   priority?: boolean;
   className?: string;
+  /** "cover" crops to fill (artwork); "contain" shows the whole image (product shots). */
+  fit?: "cover" | "contain";
 }
 
 /**
@@ -21,7 +23,7 @@ interface CoverImageProps {
  * or 404s we swap to a palette-colored tile with the title so layouts never
  * collapse and no broken-image icon ever shows.
  */
-export function CoverImage({ src, alt, fallbackLabel, blurDataURL, sizes, priority = false, className }: CoverImageProps) {
+export function CoverImage({ src, alt, fallbackLabel, blurDataURL, sizes, priority = false, className, fit = "cover" }: CoverImageProps) {
   const [failed, setFailed] = useState(false);
 
   if (!src || failed) {
@@ -43,7 +45,7 @@ export function CoverImage({ src, alt, fallbackLabel, blurDataURL, sizes, priori
       placeholder={blurDataURL ? "blur" : "empty"}
       blurDataURL={blurDataURL}
       onError={() => setFailed(true)}
-      className={cn("object-cover", className)}
+      className={cn(fit === "contain" ? "object-contain" : "object-cover", className)}
     />
   );
 }

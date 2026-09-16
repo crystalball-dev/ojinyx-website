@@ -49,8 +49,10 @@ export const site = {
   soundcloudUserId: "949570600",
   /** How many of the latest SoundCloud uploads the WIP page shows. */
   wipFeedLimit: 12,
-  /** External store for merch. Leave empty to show "coming soon" on every item. */
-  merchStoreUrl: "",
+  /** Storefront listing everything for sale. Shown as a button on the merch page; leave empty to hide. */
+  merchStoreUrl: "https://kunaki.com/msales.asp?PublisherId=249214&pp=1",
+  /** Button text for `merchStoreUrl`. */
+  merchStoreLabel: "All CDs on Kunaki",
   /** Genre tags shown in the about section and used in structured data. */
   genres: ["Electronic", "Hip Hop & Rap", "Experimental"],
   /** Artist profiles. Entries with an empty href are dropped automatically. */
