@@ -7,7 +7,16 @@ export function Footer() {
   return (
     <footer className="relative overflow-hidden border-t border-current/10 bg-bg text-fg">
       <div className="gutter pb-10 pt-14">
-        <Wordmark decorative variant="outline" strokeWidth={1.5} className="w-full max-w-5xl opacity-70" />
+        {/* Painted with --mark-1/2/3 when a page sets them (release pages do),
+            and identical to a plain outline everywhere else. */}
+        <Wordmark
+          decorative
+          variant="outline"
+          strokeWidth={1.5}
+          gradient
+          gradientId="footer-mark"
+          className="w-full max-w-5xl opacity-70"
+        />
 
         <div className="mt-10 grid gap-10 sm:grid-cols-3">
           <div>

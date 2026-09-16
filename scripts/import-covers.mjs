@@ -36,15 +36,21 @@ const BRAND = path.join(root, "public", "brand");
 const MANIFEST = path.join(root, "src", "content", "covers.generated.json");
 const force = process.argv.includes("--force");
 
+/**
+ * Encoding quality. `size`/`crf` drive the full clip, `smallSize`/`smallCrf`
+ * the silent variant phones and cards get.
+ *
+ * The small variant is 720² rather than 540² because a phone at 3× DPR paints
+ * the hero into roughly 1170 device pixels: 540² meant a 2.2× upscale, which
+ * is where the visible crunch came from. At crf 29 the 720² file costs the
+ * same bytes as 540² did at crf 26, so it is sharper for free.
+ *
+ * The full clips stay at the master's native 1080². Encoding above that only
+ * upscales — a genuinely higher-resolution hero needs a larger master.
+ */
 const PROFILES = {
-  // Cover art is the point of a release page, so keep it close to the master.
-  cover: { size: 1080, crf: 22, smallCrf: 26 },
-  // The hero is the first thing anyone sees and its source is full of fine
-  // vertical grain, which is exactly what a high CRF smears into mush. Encode
-  // at native resolution and spend the bytes; phones still get the 540²
-  // variant. Raise `crf` if the file needs to be smaller — 25 costs about
-  // 2 MB less and is still far sharper than the 900²/27 this replaced.
-  hero: { size: 1080, crf: 23, smallCrf: 26 },
+  cover: { size: 1080, crf: 22, smallSize: 720, smallCrf: 29 },
+  hero: { size: 1080, crf: 23, smallSize: 720, smallCrf: 29 },
 };
 
 /**
@@ -204,9 +210,9 @@ async function encode(source, dir, slug, profile, posterOverride, previous) {
 
   out.mp4Small = `${smallBase}.mp4`;
   if (!(await exists(out.mp4Small))) {
-    console.log(`  encoding ${path.basename(out.mp4Small)} (H.264 540², silent)…`);
+    console.log(`  encoding ${path.basename(out.mp4Small)} (H.264 ${profile.smallSize}², silent)…`);
     await run(FFMPEG, [
-      "-y", "-v", "error", "-i", source, "-vf", squareFilter(540),
+      "-y", "-v", "error", "-i", source, "-vf", squareFilter(profile.smallSize),
       "-c:v", "libx264", "-profile:v", "main", "-preset", "slow", "-crf", String(profile.smallCrf),
       "-pix_fmt", "yuv420p", "-movflags", "+faststart", "-an", out.mp4Small,
     ]);

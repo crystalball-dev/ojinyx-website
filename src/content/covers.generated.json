@@ -1,19 +1,19 @@
 {
-  "generatedAt": "2026-09-16T03:53:05.572Z",
+  "generatedAt": "2026-09-16T04:24:59.322Z",
   "hero": {
-    "source": "_ANIMATIONS/MAIN/DONE/main_ojinyx.mp4",
-    "hash": "302a586b",
+    "source": "_ANIMATIONS/MAIN/DONE/MAIN_2.mp4",
+    "hash": "4c192279",
     "width": 1080,
     "height": 1080,
-    "duration": 9.2,
+    "duration": 9.43,
     "hasAudio": true,
-    "poster": "/brand/hero.302a586b.jpg",
-    "mp4": "/brand/hero.302a586b.mp4",
-    "mp4Small": "/brand/hero-sm.302a586b.mp4",
+    "poster": "/brand/hero.4c192279.jpg",
+    "mp4": "/brand/hero.4c192279.mp4",
+    "mp4Small": "/brand/hero-sm.4c192279.mp4",
     "bytes": {
-      "mp4": 8446001,
-      "mp4Small": 1448333,
-      "poster": 156224
+      "mp4": 15866358,
+      "mp4Small": 3181821,
+      "poster": 395135
     }
   },
   "covers": {
@@ -31,7 +31,7 @@
       "bytes": {
         "mp4": 2529622,
         "webm": 1370718,
-        "mp4Small": 424214,
+        "mp4Small": 471837,
         "poster": 228777
       }
     },
@@ -49,7 +49,7 @@
       "bytes": {
         "mp4": 4207187,
         "webm": 2502397,
-        "mp4Small": 661026,
+        "mp4Small": 706229,
         "poster": 105514
       }
     },
@@ -65,7 +65,7 @@
       "mp4Small": "/covers/the-hills-sm.e25247cf.mp4",
       "bytes": {
         "mp4": 4341208,
-        "mp4Small": 726722,
+        "mp4Small": 783440,
         "poster": 278396
       }
     },
@@ -81,7 +81,7 @@
       "mp4Small": "/covers/ojinyx-sm.0e573d7c.mp4",
       "bytes": {
         "mp4": 5494236,
-        "mp4Small": 502125,
+        "mp4Small": 589271,
         "poster": 615510
       }
     }

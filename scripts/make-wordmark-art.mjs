@@ -239,6 +239,12 @@ for (const file of posters) {
   console.log(`- ${name.padEnd(14)} ${stops.join(" → ")}   ${TARGET_WIDTH}×${outHeight}  ${(png.length / 1024 / 1024).toFixed(1)} MB`);
 }
 
+// The site reads these so the wordmark on a release page and the merch art for
+// that record are provably the same colors, from one source of truth.
+const gradientsFile = path.join(root, "src", "content", "mark-gradients.generated.json");
+await writeFile(gradientsFile, JSON.stringify(Object.fromEntries(made.map((m) => [m.slug, m.stops])), null, 2) + "\n");
+console.log(`\nwrote ${path.relative(root, gradientsFile)}`);
+
 // Contact sheet: every variant on black and on white, to check both garments.
 const tileW = 1100;
 const tileH = Math.round(tileW / aspect);

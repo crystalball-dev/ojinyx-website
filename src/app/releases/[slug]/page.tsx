@@ -12,7 +12,7 @@ import { Swatches } from "@/components/swatches";
 import { TiltCard } from "@/components/tilt-card";
 import { Tracklist } from "@/components/tracklist";
 import { site } from "@/content/site";
-import { getCoverMedia } from "@/lib/covers";
+import { getCoverMedia, getMarkGradient } from "@/lib/covers";
 import { getCoverTheme } from "@/lib/palette";
 import {
   RELEASE_TYPE_LABEL,
@@ -74,6 +74,7 @@ export default async function ReleasePage({ params }: Props) {
   const typeLabel = RELEASE_TYPE_LABEL[release.type];
   const upcoming = !release.releaseDate;
   const imprint = releaseLabel(release);
+  const markGradient = getMarkGradient(release.slug);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -205,6 +206,17 @@ export default async function ReleasePage({ params }: Props) {
           </nav>
         ) : null}
       </div>
+
+      {/* Paints the big outline wordmark below with this record's gradient —
+          the same three colors as its merch art. Set on :root because the
+          footer lives outside this subtree; values are hex-validated. */}
+      {markGradient ? (
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `:root{--mark-1:${markGradient[0]};--mark-2:${markGradient[1]};--mark-3:${markGradient[2]}}`,
+          }}
+        />
+      ) : null}
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }} />
     </ReleaseTheme>

@@ -1,4 +1,5 @@
 import manifest from "@/content/covers.generated.json";
+import markGradients from "@/content/mark-gradients.generated.json";
 import type { Release } from "@/content/types";
 
 /**
@@ -55,4 +56,18 @@ export function getCoverMedia(release: Pick<Release, "slug" | "cover" | "coverVi
 /** Home page hero clip (from _ANIMATIONS/MAIN/DONE), if it has been imported. */
 export function getHeroMedia(): CoverMedia {
   return { poster: data.hero?.poster, video: toVideo(data.hero) };
+}
+
+const HEX = /^#[0-9a-f]{6}$/i;
+
+/**
+ * The three gradient stops for a record's wordmark, written by
+ * `npm run merch-art` so the site and the printed merch use the same colors.
+ * Returns undefined unless all three are well-formed hex, since these end up
+ * inlined in a <style> tag.
+ */
+export function getMarkGradient(slug: string): [string, string, string] | undefined {
+  const stops = (markGradients as Record<string, string[] | undefined>)[slug];
+  if (!stops || stops.length < 3 || !stops.slice(0, 3).every((s) => HEX.test(s))) return undefined;
+  return [stops[0], stops[1], stops[2]];
 }

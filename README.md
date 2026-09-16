@@ -26,7 +26,7 @@ The CSS does not force a case anywhere, so what you type in `src/content/` is wh
 | Audio | Native `<audio>` for previews; SoundCloud's official widget behind a click-to-load facade | No audio library needed. The SoundCloud iframe (~1 MB of third-party JS) only loads after a tap, never on first paint. |
 | Color extraction | **sharp** (already a Next.js dependency) + a small median-cut quantizer + OKLCH math in `src/lib` | Runs once per release at build time on the poster frame. No client-side extraction, no extra runtime dependency. |
 | Animated covers | **ffmpeg** at import time (`npm run covers`), native `<video>` at runtime | Finished clips in `_ANIMATIONS/<ALBUM>/DONE` become H.264 (+ VP9 when it's smaller) at 1080² plus a silent 540² card variant and a poster frame. The poster paints first; the clip fades in when it can play, on hover/in-view for cards, autoplay for heroes. Reduced motion and data-saver get the poster only. |
-| Brand mark | Vectorised blackletter wordmark (`src/brand/wordmark.ts`, `public/brand/wordmark.svg`) | Inline SVG inherits `currentColor`, so it works inside the difference-blended nav, on themed pages, and in OG cards. Favicon and apple icon are the initial glyph. |
+| Brand mark | Vectorized blackletter wordmark (`src/brand/wordmark.ts`, `public/brand/wordmark.svg`) | Inline SVG inherits `currentColor`, so it works inside the difference-blended nav, on themed pages, and in OG cards. Favicon and apple icon are the initial glyph. On a release page the large footer wordmark is stroked with that record's gradient, via `--mark-1/2/3` set on `:root` by the page; every other page leaves those unset and the stops fall back to `currentColor`, rendering the plain outline unchanged. |
 | Fonts | `next/font/google`: **Unbounded** (display) + **Space Grotesk** (body), both variable | Self-hosted at build, one file each, `font-display: swap`, no request to Google from the browser. |
 | Analytics | `@vercel/analytics` + `@vercel/speed-insights` | No-ops locally; real-user Core Web Vitals in production. |
 
@@ -51,6 +51,7 @@ _ANIMATIONS/
 - `public/covers/<slug>-sm.<hash>.mp4` — 540², silent, for cards
 - `public/covers/<slug>.<hash>.jpg` — poster frame (the palette, OG card and no-JS fallback all come from this)
 - `public/brand/hero.<hash>.*` — same set for the home hero
+- `src/content/mark-gradients.generated.json` — written by `npm run merch-art`; three gradient stops per record, shared by the merch art and the wordmark on that record's page
 - `src/content/covers.generated.json` — the manifest the site reads
 
 Commit the generated files; they are the deployable assets. A release picks up its artwork automatically when its `slug` in `src/content/releases.ts` matches the slugified folder name. `cover` / `coverVideo` on a release override the generated assets.
@@ -161,7 +162,9 @@ What runs where:
 - `/api/contact` is the only server function.
 - Images go through Vercel's image CDN (AVIF/WebP, 31-day cache). `/covers/*`, `/brand/*` and `/merch/*` are served immutable; generated cover and hero files carry a content hash, so re-running `npm run covers` after changing a clip produces new URLs automatically.
 - Video is served as static files from `public/` (range requests work out of the box). Cards use the 540² silent variant; heroes and release pages use the full clip, which starts loading only after the poster has painted. Phones get the small variant everywhere.
-- Encoding quality lives in `PROFILES` in the import script. The hero is deliberately expensive: its source is full of fine vertical grain, and a high CRF turns that into mush, so it encodes at native 1080² and costs roughly 8 MB. Raising `crf` to 25 saves about 2 MB and still looks far better than the 900²/27 profile it replaced.
+- Encoding quality lives in `PROFILES` in the import script. Full clips stay at the master's native 1080²; encoding above that would only upscale, so a genuinely sharper hero needs a larger master. The hero is deliberately expensive because its source is dense grain that a high CRF turns to mush.
+- The small variant is 720², not 540². A phone at 3× DPR paints the hero into roughly 1170 device pixels, so 540² meant a 2.2× upscale — that was the visible crunch. At crf 29 the 720² file costs about the same as 540² did at crf 26.
+- Measured hero box sizes: 756 CSS px on a 1440×900 laptop, 936 at 1080p, 1296 at 1440p, and 973 CSS px (1946 device px) on a retina laptop. Only that last case upscales the 1080² master, by 1.8×.
 
 ## Performance notes
 
