@@ -236,6 +236,12 @@ video {
 .marquee-copy {
   display: inline-flex;
   align-items: center;
+  /* The loop only closes seamlessly when one copy is at least as wide as the
+     band (see <Marquee/>). The band never exceeds the viewport, so this holds
+     on any screen; if it ever stretches a copy, space-around spreads the slack
+     between words instead of leaving it as a gap at the end. */
+  min-width: 100vw;
+  justify-content: space-around;
   gap: var(--marquee-gap, 2.5rem);
   padding-right: var(--marquee-gap, 2.5rem);
 }
