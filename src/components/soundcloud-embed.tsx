@@ -7,12 +7,17 @@ import { cn } from "@/lib/utils";
 interface SoundCloudEmbedProps {
   url: string;
   title: string;
-  author?: string;
   thumbnail?: string;
   note?: string;
+  /** Pre-formatted upload date, e.g. "13 Sep 2026". */
+  publishedAt?: string;
+  /** "4:18" */
+  duration?: string;
+  /** Hand-picked in content rather than pulled from the feed. */
+  pinned?: boolean;
   /** Hex without "#", passed to the widget. */
   accent?: string;
-  /** False when oEmbed lookup failed — we still allow playing. */
+  /** False when metadata lookup failed — playback is still offered. */
   resolved: boolean;
 }
 
@@ -21,11 +26,22 @@ type Status = "idle" | "loading" | "loaded" | "failed";
 const LOAD_TIMEOUT_MS = 12000;
 
 /**
- * Click-to-load facade for the official SoundCloud widget. The iframe (and
- * its ~1 MB of third-party JS) only mounts after an explicit play. If the
- * player doesn't load within a timeout we fall back to a plain link.
+ * Click-to-load facade for the official SoundCloud widget. The iframe and its
+ * third-party JavaScript only mount after an explicit play, so the page costs
+ * nothing until someone wants audio. If the player doesn't load in time, the
+ * card falls back to a plain link.
  */
-export function SoundCloudEmbed({ url, title, author, thumbnail, note, accent = "c6ff00", resolved }: SoundCloudEmbedProps) {
+export function SoundCloudEmbed({
+  url,
+  title,
+  thumbnail,
+  note,
+  publishedAt,
+  duration,
+  pinned = false,
+  accent = "ff2bd6",
+  resolved,
+}: SoundCloudEmbedProps) {
   const [status, setStatus] = useState<Status>("idle");
   const [thumbOk, setThumbOk] = useState(Boolean(thumbnail));
 
@@ -36,6 +52,7 @@ export function SoundCloudEmbed({ url, title, author, thumbnail, note, accent = 
   }, [status]);
 
   const showFacade = status === "idle" || status === "failed";
+  const meta = [publishedAt, duration].filter(Boolean).join(" · ");
 
   return (
     <article className="overflow-hidden rounded-3xl border border-current/15 bg-fg/5">
@@ -43,8 +60,8 @@ export function SoundCloudEmbed({ url, title, author, thumbnail, note, accent = 
         {showFacade ? (
           <>
             {thumbOk && thumbnail ? (
-              // Plain <img>: third-party art shouldn't go through our image optimizer quota,
-              // and a hotlink failure just hides it.
+              // Plain <img>: third-party artwork shouldn't consume the image
+              // optimizer quota, and a hotlink failure just hides it.
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={thumbnail}
@@ -68,6 +85,7 @@ export function SoundCloudEmbed({ url, title, author, thumbnail, note, accent = 
                 Play
               </span>
             </button>
+            {pinned ? <span className="label absolute left-3 top-3 -rotate-3 bg-accent px-3 py-1 text-accent-fg">Pinned</span> : null}
             {status === "failed" ? (
               <p role="alert" className="label absolute inset-x-4 bottom-4 rounded-full bg-bg/90 px-4 py-2 text-center">
                 The player didn&apos;t load.{" "}
@@ -96,8 +114,11 @@ export function SoundCloudEmbed({ url, title, author, thumbnail, note, accent = 
 
       <div className="flex items-start justify-between gap-4 p-5">
         <div className="min-w-0">
-          <h3 className="display truncate text-xl uppercase sm:text-2xl">{title}</h3>
-          {author ? <p className="label mt-1 text-muted">{author}</p> : null}
+          {/* No forced case here: WIP titles are working labels straight from
+              SoundCloud ("DIEHARD, bad vocals"), and the lowercase half is
+              how takes are told apart. The allcaps rule is for finished songs. */}
+          <h3 className="display truncate text-xl sm:text-2xl">{title}</h3>
+          {meta ? <p className="label mt-1 text-muted">{meta}</p> : null}
           {note ? <p className="mt-2 text-sm text-muted">{note}</p> : null}
           {!resolved ? <p className="label mt-2 text-muted">details unavailable · link still works</p> : null}
         </div>

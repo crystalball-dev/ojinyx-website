@@ -40,6 +40,15 @@ export const site = {
   email: "hello@ojinyx.com",
   /** Public SoundCloud profile (used on the WIP page). */
   soundcloudProfile: "https://soundcloud.com/ojinyx",
+  /**
+   * Numeric SoundCloud user id, used to read the public RSS feed that powers
+   * the live WIP list. Leave it empty and the feed is resolved from the
+   * profile URL instead, at the cost of one extra request per build.
+   * To find it by hand: open the profile, view source, search "soundcloud:users:".
+   */
+  soundcloudUserId: "949570600",
+  /** How many of the latest SoundCloud uploads the WIP page shows. */
+  wipFeedLimit: 12,
   /** External store for merch. Leave empty to show "coming soon" on every item. */
   merchStoreUrl: "",
   /** Genre tags shown in the about section and used in structured data. */

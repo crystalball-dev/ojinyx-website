@@ -72,8 +72,8 @@ export const releases: Release[] = [
     title: "WAR ON DRUGS",
     type: "ep",
     releaseDate: "2024-04-12",
-    // Not currently listed on Spotify; Apple Music and YouTube Music only.
     links: {
+      spotify: "https://open.spotify.com/album/1Sjdy76DHjW3RRbc2YPXTB",
       apple: "https://music.apple.com/album/war-on-drugs-ep/1738759827",
       youtubeMusic: "https://music.youtube.com/browse/MPREb_Lxi10OWPsM0",
     },
@@ -82,6 +82,34 @@ export const releases: Release[] = [
       { title: "WAR ON DRUGS", duration: "1:50" },
       { title: "KILL ALL HUMANS", duration: "3:34" },
       { title: "ALL HUMANS ARE VERMIN IN THE EYES OF MORBO", duration: "2:31" },
+    ],
+  },
+  {
+    slug: "ojinyx",
+    title: "OJINYX",
+    type: "album",
+    releaseDate: "2024-05-10",
+    /**
+     * No animated cover yet: this is the official square artwork. Drop a clip
+     * into _ANIMATIONS/OJINYX/DONE/, run `npm run covers`, then delete this
+     * `cover` line so the generated poster and video take over.
+     */
+    cover: "/covers/ojinyx.78455f1d.jpg",
+    links: {
+      // TODO(ojinyx): paste the Spotify album URL — it wasn't readable from the
+      // public discography page, which hides most of the catalogue behind a wall.
+      apple: "https://music.apple.com/album/ojinyx/1743579477",
+      youtubeMusic: "https://music.youtube.com/browse/MPREb_yndQKlEHDrb",
+    },
+    tracks: [
+      { title: "PARADISE", duration: "2:41" },
+      { title: "GRAVITY", duration: "3:17" },
+      { title: "STALK", duration: "3:42" },
+      { title: "XIII", duration: "5:29" },
+      { title: "SIX", duration: "3:29" },
+      { title: "ISOLATED", duration: "3:12" },
+      { title: "WHEN I'M UP", duration: "4:39" },
+      { title: "NEVER", duration: "3:27" },
     ],
   },
 ];

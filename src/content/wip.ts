@@ -1,14 +1,15 @@
 import type { WipTrack } from "./types";
 
 /**
- * Works in progress — public SoundCloud track or playlist URLs.
+ * Works in progress.
  * ─────────────────────────────────────────────────────────────────────────
- * Empty on purpose: there are no works in progress posted right now, so the
- * WIP page shows an honest empty state plus a link to the SoundCloud profile.
+ * The WIP page is LIVE: it reads the latest public uploads straight from the
+ * SoundCloud RSS feed every hour, so posting a track there puts it on the
+ * site with no redeploy. `site.wipFeedLimit` controls how many are shown.
  *
- * To add one, paste the public URL here. Titles and artwork are resolved from
- * SoundCloud's oEmbed endpoint at build time (revalidated daily), and a URL
- * that can't be resolved still renders as a plain link card.
+ * This list is only for pinning. Anything here is shown first, above the
+ * feed, and is de-duplicated against it — useful for keeping one track at the
+ * top or attaching a note the SoundCloud description doesn't carry.
  *
  *   { url: "https://soundcloud.com/ojinyx/some-demo", note: "rough mix" },
  */
