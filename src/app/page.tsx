@@ -58,7 +58,7 @@ export default async function HomePage() {
         <PointerGlow />
         <h1 className="sr-only">{site.name}</h1>
 
-        <div className="hero-layout relative min-h-[100svh] gap-x-6 gap-y-8 pb-[max(2rem,env(safe-area-inset-bottom))] pt-20 md:pt-24">
+        <div className="hero-layout relative min-h-[100svh] gap-x-6 gap-y-8 pt-20 md:pt-24">
           <div className="hero-side-left gutter flex flex-col gap-3">
             <span className="label text-muted">{site.genres.join(" · ")}</span>
             <p className="display max-w-md text-[clamp(1.25rem,1.9vw,1.75rem)] tracking-tight">{site.tagline}</p>
@@ -102,7 +102,8 @@ export default async function HomePage() {
       </section>
 
       {/* ── Ticker ─────────────────────────────────────────────────────── */}
-      <div className="relative z-10 -my-4 -rotate-2 bg-accent py-3 text-accent-fg">
+      {/* Pulls the following section up, but no longer cuts into the hero. */}
+      <div className="relative z-10 -mb-4 -rotate-2 bg-accent py-3 text-accent-fg">
         <Marquee
           items={tickerItems.map((t) => (
             <span key={t} className="display text-[clamp(1.25rem,3vw,2.5rem)]">

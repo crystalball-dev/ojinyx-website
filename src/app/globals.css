@@ -403,10 +403,15 @@ video {
   display: grid;
   grid-template-columns: 1fr;
   align-content: center;
+  /* The ticker below is rotated -2deg, so its right end rides above its own
+     box by roughly half the viewport width times sin(2deg), which is ~1.75vw.
+     Keep the hero CTAs clear of it at every width. */
+  padding-bottom: max(calc(1.5rem + 2vw), calc(env(safe-area-inset-bottom) + 1.5rem));
 }
 .hero-video-box {
-  /* Leave room for the nav above and the text below on short/wide screens. */
-  width: min(100vw, calc(100svh - 9rem));
+  /* Leave room for the nav above, and for the text plus the ticker clearance
+     below, so the whole hero still fits one screen. */
+  width: min(100vw, calc(100svh - 10rem));
   aspect-ratio: 1;
   justify-self: center;
   order: 1;
