@@ -23,7 +23,7 @@ import {
  *
  *   1. load the cover (local file under /public or a remote URL)
  *   2. downsample to ≤64px with sharp and read raw RGB pixels
- *   3. median-cut quantize into 8 colour boxes (deterministic → stable builds)
+ *   3. median-cut quantize into 8 color boxes (deterministic → stable builds)
  *   4. score boxes for "dominant" (population) and "vibrant" (chroma)
  *   5. derive bg / fg / accents in OKLCH and enforce WCAG contrast
  *   6. also emit a 16px blur placeholder for next/image
@@ -38,11 +38,11 @@ export interface Palette {
   fg: string;
   muted: string;
   accent: string;
-  /** Text colour to use on top of `accent`. */
+  /** Text color to use on top of `accent`. */
   accentFg: string;
   accent2: string;
   accent3: string;
-  /** Raw quantized colours, most → least common. */
+  /** Raw quantized colors, most → least common. */
   swatches: string[];
   source: "extracted" | "fallback";
 }
@@ -223,7 +223,7 @@ function medianCut(pixels: Uint8Array, channels: number, boxCount: number): Swat
 }
 
 /**
- * Grain, gradients and anti-aliasing split one perceptual colour across
+ * Grain, gradients and anti-aliasing split one perceptual color across
  * several clusters, which makes a fragmented background lose the "dominant"
  * vote to a solid shape. Merge clusters closer than a small OKLab distance.
  */
@@ -271,7 +271,7 @@ function derivePalette(swatches: Swatch[], seed: string): Palette {
   const meanL = swatches.reduce((acc, s) => acc + s.lch.l * s.share, 0);
   const mode: Palette["mode"] = meanL > 0.62 ? "light" : "dark";
 
-  // "Vibrant" = chroma-heavy, mid-lightness colours, weighted by population so
+  // "Vibrant" = chroma-heavy, mid-lightness colors, weighted by population so
   // a single saturated pixel cluster doesn't hijack the theme.
   const candidates = swatches
     .filter((s) => s.lch.c >= 0.06 && s.lch.l >= 0.2 && s.lch.l <= 0.92)
@@ -287,7 +287,7 @@ function derivePalette(swatches: Swatch[], seed: string): Palette {
     : { ...candidates[0].lch, c: Math.max(candidates[0].lch.c, 0.14) };
 
   // Secondary accents must cover a real slice of the artwork; tiny clusters are
-  // usually anti-aliasing between two other colours and read as mud.
+  // usually anti-aliasing between two other colors and read as mud.
   const pickDistinct = (used: OKLCH[], minDist: number, rotate: number): OKLCH => {
     const found = candidates.find((s) => s.share >= 0.025 && used.every((u) => hueDistance(u.h, s.lch.h) >= minDist));
     if (found) return { ...found.lch, c: Math.max(found.lch.c, 0.13) };
@@ -297,7 +297,7 @@ function derivePalette(swatches: Swatch[], seed: string): Palette {
   const second = pickDistinct([vibrant], 45, 180);
   const third = pickDistinct([vibrant, second], 40, 300);
 
-  // Base hue for surfaces: the dominant colour if it has any colour in it,
+  // Base hue for surfaces: the dominant color if it has any color in it,
   // otherwise borrow the vibrant hue so gray covers still get a tinted page.
   // Even a faint tint (cream, off-white, warm gray) is worth keeping; only
   // true neutrals borrow the vibrant hue.

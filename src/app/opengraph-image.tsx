@@ -6,7 +6,7 @@ export const alt = `${site.name} — ${site.tagline}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-/** Site-wide social card: the blackletter wordmark over brand colour. */
+/** Site-wide social card: the blackletter wordmark over brand color. */
 export default function Image() {
   const markWidth = 900;
   return new ImageResponse(

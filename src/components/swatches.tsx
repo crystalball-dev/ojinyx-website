@@ -1,6 +1,6 @@
 import type { Palette } from "@/lib/palette";
 
-/** The raw quantized colours — a small, honest "here's where the theme came from". */
+/** The raw quantized colors — a small, honest "here's where the theme came from". */
 export function Swatches({ palette }: { palette: Palette }) {
   return (
     <div className="flex flex-col gap-3">
@@ -11,7 +11,7 @@ export function Swatches({ palette }: { palette: Palette }) {
       </div>
       <p className="label text-muted">
         {palette.source === "extracted"
-          ? `${palette.mode} theme · ${palette.swatches.length} colours extracted from the artwork`
+          ? `${palette.mode} theme · ${palette.swatches.length} colors extracted from the artwork`
           : "artwork unavailable · brand palette in use"}
       </p>
     </div>

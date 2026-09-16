@@ -24,7 +24,7 @@ The CSS does not force a case anywhere, so what you type in `src/content/` is wh
 | Motion | **No animation library.** CSS keyframes/transitions plus two small hooks (IntersectionObserver reveals, rAF pointer tilt) | Motion was in the first cut for the mobile menu and the tilt cards only; measured at 44 KB gzipped, a fifth of the page's JavaScript, for two interactions. Everything ambient (blobs, marquee, hero entrance, scroll-driven parallax, reveals) runs on the compositor and costs zero JS on an idle page. If richer choreography is ever needed, `motion/react` with `LazyMotion` drops back in cleanly. |
 | Page transitions | React `<ViewTransition>` | Album covers morph from grid → release page using the browser View Transitions API. No library, degrades to an instant swap. |
 | Audio | Native `<audio>` for previews; SoundCloud's official widget behind a click-to-load facade | No audio library needed. The SoundCloud iframe (~1 MB of third-party JS) only loads after a tap, never on first paint. |
-| Colour extraction | **sharp** (already a Next.js dependency) + a small median-cut quantizer + OKLCH maths in `src/lib` | Runs once per release at build time on the poster frame. No client-side extraction, no extra runtime dependency. |
+| Color extraction | **sharp** (already a Next.js dependency) + a small median-cut quantizer + OKLCH math in `src/lib` | Runs once per release at build time on the poster frame. No client-side extraction, no extra runtime dependency. |
 | Animated covers | **ffmpeg** at import time (`npm run covers`), native `<video>` at runtime | Finished clips in `_ANIMATIONS/<ALBUM>/DONE` become H.264 (+ VP9 when it's smaller) at 1080² plus a silent 540² card variant and a poster frame. The poster paints first; the clip fades in when it can play, on hover/in-view for cards, autoplay for heroes. Reduced motion and data-saver get the poster only. |
 | Brand mark | Vectorised blackletter wordmark (`src/brand/wordmark.ts`, `public/brand/wordmark.svg`) | Inline SVG inherits `currentColor`, so it works inside the difference-blended nav, on themed pages, and in OG cards. Favicon and apple icon are the initial glyph. |
 | Fonts | `next/font/google`: **Unbounded** (display) + **Space Grotesk** (body), both variable | Self-hosted at build, one file each, `font-display: swap`, no request to Google from the browser. |
@@ -61,9 +61,9 @@ Commit the generated files; they are the deployable assets. A release picks up i
 
 1. Load the poster frame from `/public` (or an `https://` URL).
 2. sharp downsamples it to ≤ 64 px and hands back raw RGB.
-3. Median-cut quantization → 8 colour boxes with pixel share (deterministic, so builds are stable).
+3. Median-cut quantization → 8 color boxes with pixel share (deterministic, so builds are stable).
 4. Score boxes: the most populous is *dominant*; the best chroma × population is *vibrant*; two more accents are picked for hue distance (or synthesized by hue rotation).
-5. In OKLCH, derive `bg`, `fg`, `muted`, `accent`, `accent2`, `accent3`. Bright artwork gets a light theme, dark artwork a dark one. Every text/accent colour is nudged until it clears WCAG contrast against `bg` (7:1 body, 4.5:1 muted, 3:1 accents).
+5. In OKLCH, derive `bg`, `fg`, `muted`, `accent`, `accent2`, `accent3`. Bright artwork gets a light theme, dark artwork a dark one. Every text/accent color is nudged until it clears WCAG contrast against `bg` (7:1 body, 4.5:1 muted, 3:1 accents).
 6. A 16 px WebP blur placeholder is generated in the same pass for `next/image`.
 
 The result is written as CSS custom properties on a wrapper (`<ReleaseTheme>`), so every Tailwind token (`bg-bg`, `text-accent`, …) re-resolves inside it. The release page's blobs, marquee, buttons, `<meta name="theme-color">` and Open Graph card all use the same palette.
@@ -72,7 +72,7 @@ The result is written as CSS custom properties on a wrapper (`<ReleaseTheme>`), 
 
 ## Error handling
 
-- **Cover images** — `CoverImage` swaps to a palette-coloured tile with the title on load error or missing `src`; layouts never collapse.
+- **Cover images** — `CoverImage` swaps to a palette-colored tile with the title on load error or missing `src`; layouts never collapse.
 - **Palette extraction** — never throws; falls back to the brand palette (see above).
 - **Streaming links** — only well-formed `https` links render; a release with none shows "Not on streaming services yet."
 - **SoundCloud** — oEmbed lookups time out after 6 s and fall back to a link card; the player iframe is behind a click-to-load facade with a 12 s timeout and an "open on SoundCloud" escape hatch; each embed sits inside a client `ErrorBoundary`.
@@ -100,7 +100,7 @@ src/
   content/                ← ALL editable content: site.ts releases.ts wip.ts merch.ts
     covers.generated.json manifest written by `npm run covers`
   lib/
-    color.ts              OKLab/OKLCH + WCAG maths (pure)
+    color.ts              OKLab/OKLCH + WCAG math (pure)
     palette.ts            poster → theme (server only, sharp)
     covers.ts             release → poster/video resolver
     releases.ts soundcloud.ts theme.ts utils.ts
@@ -119,10 +119,10 @@ _ANIMATIONS/              source clips (git-ignored)
 Everything marked `TODO(ojinyx)` in `src/content/` is placeholder.
 
 - **Add a release**: put the finished clip in `_ANIMATIONS/<ALBUM>/DONE/`, run `npm run covers`, add an entry with the matching slug to `src/content/releases.ts`. The page, theme, OG image and sitemap entry are generated. Titles go in allcaps. Leave `releaseDate` off until it's announced; undated releases show "Coming soon" and sort to the top.
-- **Live discography**: `KINGDOMS` (album, 2026-09-11), `THE HILLS` (EP, same day), `OJINYX` (album, 2024-05-10), `WAR ON DRUGS` (EP, 2024-04-12). Dates, tracklists, durations and store links came from the Apple Music catalogue, the Spotify discography and the YouTube Music channel. Only a description per release is still missing. `PANTONES` and `END OF THE WORLD` are deliberately left off, pending a throwback tape.
+- **Live discography**: `KINGDOMS` (album, 2026-09-11), `THE HILLS` (EP, same day), `OJINYX` (album, 2024-05-10), `WAR ON DRUGS` (EP, 2024-04-12). Dates, tracklists, durations and store links came from the Apple Music catalog, the Spotify discography and the YouTube Music channel. Only a description per release is still missing. `PANTONES` and `END OF THE WORLD` are deliberately left off, pending a throwback tape.
 - `OJINYX` has no animated cover yet, so it uses the official square artwork via the `cover` override. Drop a clip into `_ANIMATIONS/OJINYX/DONE/`, run `npm run covers`, and delete that line to switch it over.
 - `KINGDOMS` and `THE HILLS` share a release date, so `KINGDOMS` carries `featured: true` to lead the discography and the home page. Remove that flag and ordering falls back to date alone.
-- Titles are plain letters even where the cover art stylises them (the KINGDOMS artwork draws a slashed O). Track titles are normalised to allcaps; the 2024 WAR ON DRUGS metadata predates the convention and reads title case on Apple.
+- Titles are plain letters even where the cover art stylizes them (the KINGDOMS artwork draws a slashed O). Track titles are normalized to allcaps; the 2024 WAR ON DRUGS metadata predates the convention and reads title case on Apple.
 - Folder names are slugified for URLs, and accented or Nordic letters are transliterated, so a folder like `KINGDØMS/` still resolves to `/releases/kingdoms`. Where a folder is named after the image rather than the record, map it in `ALBUM_SLUGS` in the import script — that is how `_ANIMATIONS/BUNNY/` becomes `/releases/the-hills`, after the EP's lead track.
 - **WIP is live**: the page reads the latest public uploads from the SoundCloud RSS feed (`feeds.soundcloud.com/users/soundcloud:users:<id>/sounds.rss`, no auth) and revalidates hourly, so posting a track there puts it on the site with no redeploy. `site.wipFeedLimit` caps how many show. `src/content/wip.ts` is now only for pinning a track above the feed or attaching a note; it de-duplicates against the feed. If the feed ever fails the page falls back to whatever is pinned, then to an empty state.
 - WIP titles render exactly as posted on SoundCloud. The allcaps rule covers finished songs and records, not working labels like "DIEHARD, bad vocals".

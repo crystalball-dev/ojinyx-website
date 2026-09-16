@@ -2,7 +2,7 @@ import type { CSSProperties } from "react";
 import { cn } from "@/lib/utils";
 
 interface BlobsProps {
-  /** Up to four colours; defaults to the current theme's accents. */
+  /** Up to four colors; defaults to the current theme's accents. */
   colors?: string[];
   className?: string;
 }

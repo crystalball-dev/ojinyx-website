@@ -5,7 +5,7 @@ import { sortedReleases } from "@/lib/releases";
 
 export const metadata: Metadata = {
   title: "Releases",
-  description: "Every release, each in its own colour world.",
+  description: "Every ojinyx release. Each page is unique, just like the records.",
   alternates: { canonical: "/releases" },
 };
 
@@ -14,7 +14,11 @@ export default function ReleasesPage() {
     <div className="gutter pb-24 pt-32 md:pt-40">
       <div className="flex flex-wrap items-end justify-between gap-6">
         <SectionHeading as="h1" label={`${sortedReleases.length} ${sortedReleases.length === 1 ? "record" : "records"}`} title="RELEASES" />
-        <p className="label max-w-xs text-muted">Each page is themed from its own artwork — colours extracted at build, no hand-picking.</p>
+        {/* Set as a sentence, not a label: two lines of uppercase micro-type
+            would shout and wrap badly next to the heading. */}
+        <p className="mb-2 max-w-sm text-lg leading-snug text-muted">
+          Each page is unique, just like the records. Bold colors catered for your viewing pleasure.
+        </p>
       </div>
 
       {sortedReleases.length ? (

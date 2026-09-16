@@ -25,12 +25,12 @@ export const site = {
   description:
     "ojinyx — independent music project, self-released through OPERATION FAIRWAY. Releases, works in progress, merch and contact.",
   /**
-   * Bio paragraphs.
-   * TODO(ojinyx): these two are placeholder — rewrite in your own words.
+   * Bio paragraphs. American English throughout.
+   * TODO(ojinyx): the first line is still placeholder wording — rewrite it.
    */
   bio: [
     "ojinyx is an independent music project, written, recorded and self-released through OPERATION FAIRWAY.",
-    "Every record gets its own colour world, pulled straight from the artwork. This site does the same.",
+    "Every record is its own world. The colors on this site come straight from the covers.",
   ],
   /** Closing line of the bio, set as a refrain. Keep verbatim. */
   refrain: "Get lost in the Zone, stalker. OPERATION FAIRWAY.",

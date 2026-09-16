@@ -18,7 +18,7 @@ interface CoverImageProps {
 /**
  * next/image with a failure path. Must be rendered inside a positioned
  * container with an aspect ratio (it uses `fill`). If the source is missing
- * or 404s we swap to a palette-coloured tile with the title so layouts never
+ * or 404s we swap to a palette-colored tile with the title so layouts never
  * collapse and no broken-image icon ever shows.
  */
 export function CoverImage({ src, alt, fallbackLabel, blurDataURL, sizes, priority = false, className }: CoverImageProps) {

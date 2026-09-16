@@ -16,7 +16,7 @@ export default function ContactPage() {
 
       <div className="mt-14 grid gap-14 md:grid-cols-12">
         <div className="flex flex-col gap-8 md:col-span-5">
-          <p className="max-w-prose text-xl text-muted">Bookings, remixes, sync, press, or just to say the colours are too loud.</p>
+          <p className="max-w-prose text-xl text-muted">Bookings, remixes, sync, press, or just to say the colors are too loud.</p>
           <div>
             <p className="label text-muted">Email</p>
             <a

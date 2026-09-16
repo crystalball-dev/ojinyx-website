@@ -179,7 +179,7 @@ export default async function ReleasePage({ params }: Props) {
               </div>
             ) : null}
             <div>
-              <h2 className="label mb-4 text-muted">Colour world</h2>
+              <h2 className="label mb-4 text-muted">Color world</h2>
               <Swatches palette={palette} />
             </div>
           </Reveal>

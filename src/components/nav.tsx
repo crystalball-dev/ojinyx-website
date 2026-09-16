@@ -14,7 +14,7 @@ function isActive(pathname: string, href: string) {
 /**
  * Fixed header in `mix-blend-mode: difference`, so it stays legible over the
  * hero blobs, light release pages and dark ones alike without any per-page
- * colour logic. The mobile menu is a sibling so it isn't blended; its
+ * color logic. The mobile menu is a sibling so it isn't blended; its
  * entrance is CSS (see .menu-overlay / .menu-item in globals.css).
  */
 export function Nav() {

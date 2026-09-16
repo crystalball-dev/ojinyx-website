@@ -114,7 +114,7 @@ video {
 }
 
 /* Fill is cleared with -webkit-text-fill-color (not color) so currentColor
-   still resolves to the inherited text colour for the stroke. */
+   still resolves to the inherited text color for the stroke. */
 @utility text-outline {
   -webkit-text-fill-color: transparent;
   -webkit-text-stroke: 1.5px currentColor;
@@ -166,7 +166,7 @@ video {
 
 /* ──────────────────────────────────────────────────────────────────────────
    Blobs — soft radial gradients moved with transform only (compositor work,
-   no per-frame paint). Colours come from --c1…--c4, so a release page can
+   no per-frame paint). Colors come from --c1…--c4, so a release page can
    feed its extracted palette straight in.
    ────────────────────────────────────────────────────────────────────────── */
 .blobs {
@@ -248,7 +248,7 @@ video {
 
 /* ──────────────────────────────────────────────────────────────────────────
    Hero name — white letters in difference mode over the moving blobs, so the
-   type inverts whatever colour drifts beneath it.
+   type inverts whatever color drifts beneath it.
    ────────────────────────────────────────────────────────────────────────── */
 .hero {
   isolation: isolate;
@@ -396,7 +396,7 @@ video {
 }
 
 /* ──────────────────────────────────────────────────────────────────────────
-   Home hero: the square brand clip sits centre stage; on wide viewports the
+   Home hero: the square brand clip sits center stage; on wide viewports the
    tagline and CTAs live in the side columns, otherwise they stack below.
    ────────────────────────────────────────────────────────────────────────── */
 .hero-layout {

@@ -5,7 +5,7 @@ import type { Release } from "@/content/types";
  * Resolves the artwork for a release: an explicit `cover` / `coverVideo` in
  * releases.ts wins, otherwise the assets produced by `npm run covers` for a
  * matching slug are used. Everything is optional — a release with no
- * artwork at all still renders (with a coloured fallback tile).
+ * artwork at all still renders (with a colored fallback tile).
  */
 
 export interface CoverVideo {

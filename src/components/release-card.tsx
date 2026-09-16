@@ -18,7 +18,7 @@ interface ReleaseCardProps {
 
 /**
  * Grid card themed by its own extracted palette, so the discography reads
- * as a wall of distinct colour worlds. The animated cover plays on hover
+ * as a wall of distinct color worlds. The animated cover plays on hover
  * (or while in view on touch screens). The artwork carries a view-transition
  * name that matches the release page hero, so it morphs across navigation.
  */

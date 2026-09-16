@@ -9,8 +9,8 @@ import type { Release } from "./types";
  * somewhere else.
  *
  * Dates, tracklists, durations and store links below were taken from the
- * Apple Music catalogue, the Spotify discography and the YouTube Music
- * channel. Track titles are normalised to allcaps to match the house style;
+ * Apple Music catalog, the Spotify discography and the YouTube Music
+ * channel. Track titles are normalized to allcaps to match the house style;
  * the WAR ON DRUGS metadata predates it and reads title case on Apple.
  *
  * Artwork comes from `npm run covers`, which maps each _ANIMATIONS/<ALBUM>
@@ -96,8 +96,7 @@ export const releases: Release[] = [
      */
     cover: "/covers/ojinyx.78455f1d.jpg",
     links: {
-      // TODO(ojinyx): paste the Spotify album URL — it wasn't readable from the
-      // public discography page, which hides most of the catalogue behind a wall.
+      spotify: "https://open.spotify.com/album/3SOsbi5Cv2eAvILg31NaT5",
       apple: "https://music.apple.com/album/ojinyx/1743579477",
       youtubeMusic: "https://music.youtube.com/browse/MPREb_yndQKlEHDrb",
     },

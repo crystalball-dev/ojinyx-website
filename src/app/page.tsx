@@ -49,7 +49,7 @@ export default async function HomePage() {
 
   return (
     <>
-      {/* ── Hero: the brand clip, centre stage ─────────────────────────── */}
+      {/* ── Hero: the brand clip, center stage ─────────────────────────── */}
       <section className="hero relative overflow-hidden bg-bg">
         <Blobs
           colors={heroTheme ? [heroTheme.palette.accent3, heroTheme.palette.accent, heroTheme.palette.accent2, heroTheme.palette.accent3] : undefined}
@@ -242,7 +242,7 @@ export default async function HomePage() {
           <ul className="grid gap-4 md:grid-cols-3">
             {[
               { href: "/wip", title: "WIP", text: "Sketches, demos and things that might never come out.", bg: "bg-accent-3 text-white" },
-              { href: "/merch", title: "MERCH", text: "Wear the colours.", bg: "bg-accent text-accent-fg" },
+              { href: "/merch", title: "MERCH", text: "Wear the colors.", bg: "bg-accent text-accent-fg" },
               { href: "/contact", title: "CONTACT", text: "Bookings, remixes, sync, hello.", bg: "bg-accent-2 text-black" },
             ].map((tile, i) => (
               <li key={tile.href}>

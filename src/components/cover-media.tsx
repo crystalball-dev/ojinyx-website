@@ -10,7 +10,7 @@ type Mode =
   | "autoplay"
   /** Plays while ≥60% in view, pauses otherwise. */
   | "inview"
-  /** Hover to play on mouse devices; in-view behaviour on touch. */
+  /** Hover to play on mouse devices; in-view behavior on touch. */
   | "hover";
 
 interface CoverMediaProps {

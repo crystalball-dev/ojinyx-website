@@ -11,7 +11,7 @@ export default function NotFound() {
         <h1 className="hero-name display -rotate-3" style={{ "--letters": 3 } as CSSProperties}>
           404
         </h1>
-        <p className="max-w-md text-xl text-muted">That page is off the map. Nothing out here but colour.</p>
+        <p className="max-w-md text-xl text-muted">That page is off the map. Nothing out here but color.</p>
         <div>
           <Link href="/" className={pillSolid}>
             Back home
