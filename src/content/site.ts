@@ -1,5 +1,8 @@
 import type { SocialLink } from "./types";
 
+/** Non-breaking space, for keeping a short closing phrase on one line. Visible in source, unlike a literal U+00A0. */
+const nbsp = String.fromCharCode(0xa0);
+
 /**
  * Site-wide settings.
  * ─────────────────────────────────────────────────────────────────────────
@@ -24,10 +27,14 @@ export const site = {
   /** SEO description (~150 chars). */
   description:
     "ojinyx — independent music project, self-released through OPERATION FAIRWAY. Releases, works in progress, merch and contact.",
-  /** Bio paragraphs, shown in the home page About section and in search structured data. American English throughout. */
+  /**
+   * Bio paragraphs, shown in the home page About section and in search
+   * structured data. American English throughout. Each paragraph ends on a
+   * short sign-off joined with `nbsp`, so it never wraps mid-phrase.
+   */
   bio: [
-    "ojinyx is an independent music project, written, recorded and self-released through OPERATION FAIRWAY. Every track is boldly experimental — crossing genre lines without regard for expectations. Enjoy responsibly.",
-    "Every record is its own world. The colors on this site come straight from the covers.",
+    `ojinyx is an independent music project, written, recorded and self-released through OPERATION FAIRWAY. Every track is boldly experimental — crossing genre lines without regard for expectations. Enjoy${nbsp}responsibly.`,
+    `Each record builds an altered reality. The colors on this site come straight from the covers. No${nbsp}two${nbsp}alike.`,
   ],
   /** Closing line of the bio, set as a refrain. Keep verbatim. */
   refrain: "Get lost in the Zone, stalker. OPERATION FAIRWAY.",
