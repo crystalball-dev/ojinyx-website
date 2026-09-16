@@ -45,3 +45,5 @@ next-env.d.ts
 
 # large source assets (videos, project files) — keep out of the deploy repo
 /_ANIMATIONS/
+
+.vercel

@@ -139,13 +139,17 @@ Other scripts: `npm run build` (production build + type check), `npm run lint`, 
 
 ## Deploying to Vercel (existing repo + custom domain)
 
-1. Push this code to the existing repository (the project root is the repo root; `vercel.json` just pins the framework).
+The repo lives at [crystalball-dev/ojinyx-website](https://github.com/crystalball-dev/ojinyx-website). Let Vercel build it — see the Windows note below.
+
+1. Push this code to the repository (the project root is the repo root; `vercel.json` just pins the framework).
 2. In Vercel: **Add New → Project → Import** the repo. Framework preset is detected as Next.js. Build command `next build`, output default. Node 20+ (see `engines` in `package.json`).
 3. **Environment variables** (Project → Settings → Environment Variables), from `.env.example`:
    - `NEXT_PUBLIC_SITE_URL=https://ojinyx.com` (Production). Drives canonical URLs, sitemap and OG image URLs.
    - `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL` — optional; the form degrades to `mailto:` without them.
 4. **Domain**: Project → Settings → Domains → add `ojinyx.com` and `www.ojinyx.com`. Point DNS at Vercel as instructed (A `76.76.21.21` for apex, CNAME `cname.vercel-dns.com` for `www`, or use Vercel nameservers). Set one as primary and let Vercel redirect the other (it does this with one toggle; no code needed).
 5. Deploy. Every push to the production branch builds; other branches get preview URLs.
+
+> **Do not deploy a locally-built bundle from Windows.** `vercel deploy` builds locally on Windows and emits every serverless function as a symlink into a shared `releases/[slug].func`. Those symlinks don't survive the upload and the deploy fails with `ENOENT … _global-error.func`. Importing the repo (or any deploy that builds on Vercel's Linux runners) sidesteps it. If you ever do need the CLI, run it from WSL or a Linux/macOS machine.
 
 What runs where:
 
