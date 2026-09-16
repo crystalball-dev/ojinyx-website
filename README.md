@@ -10,7 +10,7 @@ Three rules, applied everywhere:
 | Rule | Example |
 | --- | --- |
 | The artist name is **always lowercase** | `ojinyx` |
-| Record and song titles are **always allcaps** | `KINGDØMS`, `WAR ON DRUGS`, `THE HILLS` |
+| Record and song titles are **always allcaps** | `KINGDOMS`, `WAR ON DRUGS`, `THE HILLS` |
 | Everything is released through **OPERATION FAIRWAY** | shown on every release page, the home page and the footer |
 
 The CSS does not force a case anywhere, so what you type in `src/content/` is what renders. `npm run dev` prints a console warning if a release or track title breaks the allcaps rule, or if the artist name stops being lowercase. The imprint comes from `site.label` and is applied to every release automatically; set `label` on a release only if it came out somewhere else.
@@ -119,8 +119,8 @@ _ANIMATIONS/              source clips (git-ignored)
 Everything marked `TODO(ojinyx)` in `src/content/` is placeholder.
 
 - **Add a release**: put the finished clip in `_ANIMATIONS/<ALBUM>/DONE/`, run `npm run covers`, add an entry with the matching slug to `src/content/releases.ts`. The page, theme, OG image and sitemap entry are generated. Titles go in allcaps. Leave `releaseDate` off until it's announced; undated releases show "Coming soon" and sort to the top.
-- **Real releases already wired**: `WAR ON DRUGS`, `BUNNY`, `KINGDØMS` — dates, types, descriptions, tracklists and streaming links are still `TODO` in `releases.ts`.
-- Folder names are slugified for URLs, and Nordic letters are transliterated, so `KINGDØMS/` and `KINGDOMS/` both resolve to `/releases/kingdoms`.
+- **Real releases already wired**: `WAR ON DRUGS`, `BUNNY`, `KINGDOMS` — dates, types, descriptions, tracklists and streaming links are still `TODO` in `releases.ts`. Titles are plain letters even where the cover art stylises them (the KINGDOMS artwork draws a slashed O).
+- Folder names are slugified for URLs, and accented or Nordic letters are transliterated, so a folder like `KINGDØMS/` still resolves to `/releases/kingdoms`.
 - **WIP**: paste public SoundCloud track/playlist URLs into `src/content/wip.ts`.
 - **Merch**: `src/content/merch.ts`; set `site.merchStoreUrl` or per-item `url` to your Bandcamp/Shopify/Big Cartel store.
 - **Bio, socials, email, tagline**: `src/content/site.ts`.

@@ -5,7 +5,7 @@ import type { SocialLink } from "./types";
  * ─────────────────────────────────────────────────────────────────────────
  * House style, applied everywhere:
  *   • the artist name is ALWAYS lowercase            → "ojinyx"
- *   • record and song titles are ALWAYS allcaps      → "KINGDØMS", "THE HILLS"
+ *   • record and song titles are ALWAYS allcaps      → "KINGDOMS", "THE HILLS"
  *   • everything is released through OPERATION FAIRWAY
  *
  * Nothing in the CSS forces a case any more, so what you type here is what

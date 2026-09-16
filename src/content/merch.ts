@@ -20,7 +20,7 @@ export const merch: MerchItem[] = [
   },
   {
     id: "hoodie-kingdoms",
-    name: "KINGDØMS HOODIE",
+    name: "KINGDOMS HOODIE",
     price: "$70",
     image: "/merch/hoodie-black.jpg",
     url: "",

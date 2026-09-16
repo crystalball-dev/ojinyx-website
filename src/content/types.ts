@@ -56,7 +56,7 @@ export interface Release {
    * picked up automatically ("WAR ON DRUGS" → "war-on-drugs").
    */
   slug: string;
-  /** House style: record titles are allcaps, e.g. "KINGDØMS". */
+  /** House style: record titles are allcaps, e.g. "KINGDOMS". */
   title: string;
   type: ReleaseType;
   /** ISO date, e.g. "2026-03-14". Drives ordering (newest first); omit for "TBA", which sorts to the top. */

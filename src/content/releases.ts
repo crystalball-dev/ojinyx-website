@@ -3,7 +3,7 @@ import type { Release } from "./types";
 /**
  * Discography.
  * ─────────────────────────────────────────────────────────────────────────
- * House style: record and song titles are ALWAYS allcaps ("KINGDØMS",
+ * House style: record and song titles are ALWAYS allcaps ("KINGDOMS",
  * "THE HILLS"). Everything is released through OPERATION FAIRWAY, which is
  * applied automatically — only set `label` on a release that came out
  * somewhere else.
@@ -37,7 +37,7 @@ export const releases: Release[] = [
   },
   {
     slug: "kingdoms",
-    title: "KINGDØMS",
+    title: "KINGDOMS", // the cover art stylises the O with a slash; the title itself is a plain O
     type: "album", // TODO
     // releaseDate: "2024-01-01", // TODO
     links: {},

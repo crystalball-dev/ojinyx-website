@@ -95,8 +95,9 @@ async function probe(file) {
 // ---------------------------------------------------------------------------
 // helpers
 
-// Folder name → URL slug. Nordic letters used in the artwork (KINGDØMS) are
-// transliterated rather than dropped, so the folder can be spelled either way.
+// Folder name → URL slug. Accented and Nordic letters are transliterated
+// rather than dropped, so a folder named "KINGDØMS" still lands on
+// /releases/kingdoms instead of /releases/kingdms.
 const TRANSLITERATE = { "ø": "o", "æ": "ae", "å": "a", "ß": "ss", "đ": "d", "ł": "l" };
 
 const slugify = (s) =>
