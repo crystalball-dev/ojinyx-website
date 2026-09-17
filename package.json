@@ -10,7 +10,8 @@
     "typecheck": "tsc --noEmit",
     "covers": "node scripts/import-covers.mjs",
     "merch-art": "node scripts/make-wordmark-art.mjs",
-    "genius-banner": "node scripts/make-genius-banner.mjs"
+    "genius-banner": "node scripts/make-genius-banner.mjs",
+    "soundcloud-banner": "node scripts/make-soundcloud-banner.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
