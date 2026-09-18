@@ -16,7 +16,8 @@
     "cards": "node scripts/make-kingdoms-cards.mjs",
     "thumbnail": "node scripts/make-video-thumbnail.mjs",
     "clip": "node scripts/make-clip.mjs",
-    "split-cover": "node scripts/split-kingdoms-cover.mjs"
+    "split-cover": "node scripts/split-kingdoms-cover.mjs",
+    "lockup": "node scripts/make-kingdoms-lockup.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
