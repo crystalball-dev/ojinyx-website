@@ -14,7 +14,8 @@
     "soundcloud-banner": "node scripts/make-soundcloud-banner.mjs",
     "youtube-banner": "node scripts/make-youtube-banner.mjs",
     "cards": "node scripts/make-kingdoms-cards.mjs",
-    "thumbnail": "node scripts/make-video-thumbnail.mjs"
+    "thumbnail": "node scripts/make-video-thumbnail.mjs",
+    "clip": "node scripts/make-clip.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

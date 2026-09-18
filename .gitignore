@@ -47,3 +47,7 @@ next-env.d.ts
 /_ANIMATIONS/
 
 .vercel
+
+# Rendered social clips — tens of MB each, and regenerable from
+# scripts/make-clip.mjs plus the master in _VIDEOS. The script is the source.
+brand-art/clips/
