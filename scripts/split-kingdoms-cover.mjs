@@ -76,6 +76,12 @@ const arg = (n, d) => {
 const CASTLE_DELTA = arg("delta", 14);
 /** Luminance above which a pixel counts as logotype. */
 const LOGO_CUT = arg("logo", 168);
+/**
+ * Erode radius. Larger than the dilate on purpose: closing the silhouette's
+ * gaps also pushes the edge out into the painted mist, and taking a little
+ * more back than was added trims that halo off.
+ */
+const ERODE = arg("erode", 4.2);
 
 await mkdir(OUT, { recursive: true });
 
@@ -98,18 +104,29 @@ const small = await luma(M);
 const { data: bg } = await sharp(cover).resize(M, M, { fit: "fill" }).greyscale().blur(38).raw().toBuffer({ resolveWithObject: true });
 
 /**
- * The castle's profile, in the same 900-space the regions were measured in.
- * A plain rectangle is not enough: a dark cloud crossing the moon is just as
- * dark against its background as a tower is, so anything boxy pulls that cloud
- * in with it. The castle is narrow at the spires and wide at the ramparts, and
- * following that shape drops the cloud without touching the castle.
+ * The castle-and-island profile, in the same 900-space the regions were
+ * measured in. A plain rectangle is not enough, in both directions:
+ *
+ *   • up top, a dark cloud crossing the moon is exactly as dark against its
+ *     background as a tower is, so a box pulls that cloud in;
+ *   • down below, the island's rock drips and the clouds beside them are
+ *     indistinguishable by tone (rock reads b-g 13-20, cloud 15-22) and by
+ *     luminance, so nothing pixel-local can tell them apart.
+ *
+ * What does separate them is shape. The island hangs as a fan that narrows
+ * going down, and the clouds sit outside it. So the profile is narrow at the
+ * spires, widest at the ramparts, then closes again through the drips.
  */
 const CASTLE_SPAN = [
   { y: 100, x0: 350, x1: 585 },
   { y: 300, x0: 350, x1: 585 },
   { y: 385, x0: 290, x1: 650 },
   { y: 425, x0: 243, x1: 678 },
-  { y: 640, x0: 243, x1: 678 },
+  { y: 500, x0: 265, x1: 660 },
+  { y: 530, x0: 300, x1: 620 },
+  { y: 570, x0: 330, x1: 590 },
+  { y: 610, x0: 350, x1: 570 },
+  { y: 648, x0: 375, x1: 545 },
 ];
 
 /** Linear interpolation across CASTLE_SPAN, in mask-space pixels. */
@@ -231,7 +248,7 @@ async function morph(src, radius, mode) {
 let m = await morph(mask, 3, "dilate");
 m = largestComponent(m);
 m = fillHoles(m);
-const castleMaskSmall = await morph(m, 3, "erode");
+const castleMaskSmall = await morph(m, ERODE, "erode");
 
 /** Grow the mask to full size, softening the staircase the upscale would leave. */
 const castleAlpha = new Uint8Array(
@@ -248,8 +265,11 @@ const castleAlpha = new Uint8Array(
 // is really cloud that happens to touch it. Rather than end on a hard
 // cloud-shaped edge, ramp the alpha out through that zone — which is what the
 // artwork does anyway.
-const fogTop = s(560);
-const fogEnd = s(650);
+// Starts below the drips, not through them. At 560 this ramp was erasing most
+// of the island — the rock fingers live between 540 and 630, and fading from
+// the top of that range took them with it.
+const fogTop = s(612);
+const fogEnd = s(652);
 for (let y = fogTop; y < N; y++) {
   const k = y >= fogEnd ? 0 : 1 - (y - fogTop) / (fogEnd - fogTop);
   const row = y * N;
