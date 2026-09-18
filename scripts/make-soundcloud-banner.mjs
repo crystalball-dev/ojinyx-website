@@ -39,6 +39,13 @@ const args = process.argv.slice(2);
 const recordArg = args[args.indexOf("--record") + 1];
 const RECORD = args.includes("--record") && recordArg ? recordArg : "war-on-drugs";
 
+/**
+ * Wordmark weight, in viewBox units. The merch line art uses 1.6. `--fill`
+ * goes back to the solid mark, which is what Genius needs.
+ */
+const strokeArg = Number(args[args.indexOf("--stroke") + 1]);
+const STROKE_UNITS = args.includes("--fill") ? 0 : Number.isFinite(strokeArg) && strokeArg > 0 ? strokeArg : 4.2;
+
 /** SoundCloud's own recommended size, and the largest variant its CDN stores. */
 const W = 2480;
 const H = 520;
@@ -113,21 +120,34 @@ function haloSvg({ cx, cy, rx, w, h }) {
 </svg>`;
 }
 
-function markSvg({ pathData, viewBox, stops, box, w, h }) {
+/**
+ * The wordmark, either solid or as line art like the merch.
+ *
+ * `stroke` is in viewBox units, the same scale make-wordmark-art.mjs uses, so
+ * 1.6 is exactly the merch weight. That weight is tuned for a garment print a
+ * metre wide; here the mark renders about 370 CSS px across, where 1.6 units
+ * comes out a hairline and the first resample eats it. STROKE_UNITS carries
+ * more weight for that reason — same drawing, legible at this size.
+ */
+function markSvg({ pathData, viewBox, stops, box, w, h, stroke }) {
   const [vx, vy, , vh] = viewBox.split(/\s+/).map(Number);
   const scale = box.h / vh;
   const offsets = stops.map((_, i) => (stops.length === 1 ? 0 : Math.pow(i / (stops.length - 1), 0.82) * 100));
+  const paint =
+    stroke > 0
+      ? `fill="none" stroke="url(#m)" stroke-width="${stroke}" stroke-linejoin="round" stroke-linecap="round"`
+      : `fill="url(#m)"`;
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
   <defs><linearGradient id="m" x1="0" y1="0.2" x2="1" y2="0.62">
 ${stops.map((s, i) => `    <stop offset="${offsets[i].toFixed(1)}%" stop-color="${esc(s)}"/>`).join("\n")}
   </linearGradient></defs>
   <g transform="translate(${box.x} ${box.y}) scale(${scale}) translate(${-vx} ${-vy})">
-    <path d="${pathData}" fill="url(#m)"/>
+    <path d="${pathData}" ${paint}/>
   </g>
 </svg>`;
 }
 
-async function buildBanner({ pathData, viewBox, stops, w, h }) {
+async function buildBanner({ pathData, viewBox, stops, w, h, stroke = STROKE_UNITS }) {
   const [, , vw, vh] = viewBox.split(/\s+/).map(Number);
   const aspect = vw / vh;
 
@@ -148,7 +168,7 @@ async function buildBanner({ pathData, viewBox, stops, w, h }) {
     blend: "over",
   });
   layers.push({
-    input: await raster(markSvg({ pathData, viewBox, stops: [...stops].reverse(), box, w, h }), w, h, 216),
+    input: await raster(markSvg({ pathData, viewBox, stops: [...stops].reverse(), box, w, h, stroke }), w, h, 216),
     blend: "over",
   });
 

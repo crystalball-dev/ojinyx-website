@@ -44,6 +44,13 @@ const OUT = path.join(root, "brand-art");
 
 const args = process.argv.slice(2);
 const widthArg = Number(args[args.indexOf("--width") + 1]);
+/**
+ * Wordmark weight in viewBox units, matching make-wordmark-art.mjs, where the
+ * merch line art is 1.6. `--line` opts into an outlined mark; see the note in
+ * markSvg for why this platform defaults to solid.
+ */
+const strokeArg = Number(args[args.indexOf("--stroke") + 1]);
+const STROKE_UNITS = args.includes("--line") ? (Number.isFinite(strokeArg) && strokeArg > 0 ? strokeArg : 4.2) : 0;
 const W = Number.isFinite(widthArg) && widthArg > 0 ? Math.round(widthArg) : 3200;
 const H = Math.round(W / 4); // 4:1 — the best compromise across phone and ultrawide
 
@@ -122,8 +129,13 @@ function haloSvg({ cx, cy, rx }) {
 </svg>`;
 }
 
-/** The wordmark as a solid gradient-filled glyph, placed in the safe band. */
-function markSvg({ pathData, viewBox, stops, box }) {
+/**
+ * The wordmark, placed in the safe band. Solid by default here, unlike the
+ * SoundCloud header: Genius caps its stored image near 1000px wide and blurs
+ * it 2px, and a stroke thin enough to read as line art does not survive that.
+ * `--line` renders it anyway — check genius-banner-proof.png before trusting it.
+ */
+function markSvg({ pathData, viewBox, stops, box, stroke = STROKE_UNITS }) {
   const [vx, vy, , vh] = viewBox.split(/\s+/).map(Number);
   const scale = box.h / vh;
   const offsets = stops.map((_, i) => (stops.length === 1 ? 0 : Math.pow(i / (stops.length - 1), 0.82) * 100));
@@ -132,7 +144,7 @@ function markSvg({ pathData, viewBox, stops, box }) {
 ${stops.map((s, i) => `    <stop offset="${offsets[i].toFixed(1)}%" stop-color="${esc(s)}"/>`).join("\n")}
   </linearGradient></defs>
   <g transform="translate(${box.x} ${box.y}) scale(${scale}) translate(${-vx} ${-vy})">
-    <path d="${pathData}" fill="url(#m)"/>
+    <path d="${pathData}" ${stroke > 0 ? `fill="none" stroke="url(#m)" stroke-width="${stroke}" stroke-linejoin="round" stroke-linecap="round"` : `fill="url(#m)"`}/>
   </g>
 </svg>`;
 }
