@@ -7,6 +7,8 @@
  *   brand-art/kingdoms-assets/logotype-black.png    same, for light garments
  *   brand-art/kingdoms-assets/castle-crop.png       tight crop, no matte
  *   brand-art/kingdoms-assets/castle-cutout.png     castle on transparency
+ *   brand-art/kingdoms-assets/castle-upper.png      clean cut at the ramparts
+ *   brand-art/kingdoms-assets/castle-matte.png      the mask, to paint on
  *   brand-art/kingdoms-assets/castle-silhouette.png flat stencil, alpha
  *   brand-art/kingdoms-assets/moon.png              the moon disc, alpha
  *   brand-art/kingdoms-assets/contact-sheet.png     everything, checkered
@@ -295,13 +297,6 @@ const castleCutout = await sharp(cover)
   .png({ compressionLevel: 9 })
   .toBuffer();
 
-// Diagnostic: the matte on its own, to judge the edges without the artwork
-// underneath confusing the eye.
-await writeFile(
-  path.join(OUT, "castle-matte.png"),
-  await sharp(Buffer.from(castleAlpha), { raw: { width: N, height: N, channels: 1 } }).png({ compressionLevel: 9 }).toBuffer(),
-);
-
 const cc = REGION.castle;
 const cw = cc.x1 - cc.x0;
 const ch = cc.y1 - cc.y0;
@@ -312,6 +307,38 @@ await writeFile(
 await writeFile(
   path.join(OUT, "castle-crop.png"),
   await sharp(cover).extract({ left: cc.x0, top: cc.y0, width: cw, height: ch }).png({ compressionLevel: 9 }).toBuffer(),
+);
+
+/**
+ * The matte on its own, cropped to match castle-crop.png pixel for pixel, so it
+ * drops straight onto it as a layer mask.
+ *
+ * This is the honest deliverable for the island. Five independent signals were
+ * tested for separating rock from fog — local contrast, luminance, hue, texture
+ * and time — and all five fail, the last because the "animation" turns out to
+ * be a static image in a video container (max temporal sd 2.1 across the whole
+ * frame). The artist painted the rock inside the fog, so the boundary does not
+ * exist in the data at any threshold. Painting it is a two-minute job with a
+ * brush and an impossible one with statistics, so the mask ships editable.
+ */
+const matteFull = await sharp(Buffer.from(castleAlpha), { raw: { width: N, height: N, channels: 1 } }).png().toBuffer();
+await writeFile(
+  path.join(OUT, "castle-matte.png"),
+  await sharp(matteFull).extract({ left: cc.x0, top: cc.y0, width: cw, height: ch }).png({ compressionLevel: 9 }).toBuffer(),
+);
+
+/**
+ * The castle cut at the underside of the ramparts. Everything above this line
+ * is silhouetted against the moon and separates cleanly, so this one asset
+ * carries no ambiguity at all — at the cost of the island.
+ */
+const RAMPART_Y = s(505);
+await writeFile(
+  path.join(OUT, "castle-upper.png"),
+  await sharp(castleCutout)
+    .extract({ left: cc.x0, top: cc.y0, width: cw, height: RAMPART_Y - cc.y0 })
+    .png({ compressionLevel: 9 })
+    .toBuffer(),
 );
 
 // Flat stencil: the same matte as solid ink, for single-color printing.
@@ -377,7 +404,7 @@ await writeFile(
 
 // ── Contact sheet ────────────────────────────────────────────────────────────
 // On a checkerboard, so transparency is visible rather than guessed at.
-const files = ["cover-4000.png", "castle-crop.png", "castle-cutout.png", "castle-silhouette.png", "logotype-white.png", "moon.png"];
+const files = ["cover-4000.png", "castle-crop.png", "castle-cutout.png", "castle-upper.png", "castle-matte.png", "castle-silhouette.png", "logotype-white.png", "moon.png"];
 const tile = 560;
 const checker = `<svg xmlns="http://www.w3.org/2000/svg" width="${tile}" height="${tile}">
   <defs><pattern id="c" width="40" height="40" patternUnits="userSpaceOnUse">
