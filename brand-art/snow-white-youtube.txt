@@ -36,14 +36,35 @@ Video edited by ojinyx.
 
 Get lost in the Zone, stalker. OPERATION FAIRWAY.
 
-#ojinyx #KINGDOMS #experimental
+#ojinyx #KINGDOMS #datamosh
 
 
-TAGS
+TAGS  (339 of the 500 characters allowed — paste as one comma-separated line)
 --------------------------------------------------------------------------
-ojinyx, SNOW WHITE, KINGDOMS, OPERATION FAIRWAY, experimental, experimental
-hip hop, electronic, glitch, datamosh, music video, official video,
-independent, self released, underground
+ojinyx,ojinyx snow white,snow white ojinyx,ojinyx kingdoms,kingdoms ojinyx,ojinx,ojynx,ojinix,ojynix,oh jinx,o jinyx,operation fairway,ojinyx official video,ojinyx music,experimental hip hop,experimental music,underground hip hop,datamosh,datamosh music video,glitch music video,glitch art,electronic music,independent artist,self released
+
+Why this set, in this order:
+  1-5   Exact brand matches. The only searches this video can realistically win.
+  6-11  Misspellings and mishearings of "ojinyx". YouTube's help page says this
+        is what tags are actually for — everything else is near-decorative.
+  12-14 Catalog terms, so the back half of the channel links up over time.
+  15-24 Genre and format. Cheap to include, low expectation.
+
+Deliberately NOT included: "snow white", "snow white music video", or any bare
+form of the track title. That search belongs to Disney and a 2025 remake, and
+spending tags there wins nothing.
+
+
+HASHTAGS  (in the description — the first three render above the title)
+--------------------------------------------------------------------------
+#ojinyx #KINGDOMS #datamosh
+
+Hard cap is 15 across title and description combined; go over and YouTube
+ignores all of them. Three is right. #datamosh replaces #experimental because
+its pool is small enough that this video can actually surface in it.
+
+Never paste the tag list into the description — YouTube's spam policy names
+excessive description tags specifically.
 
 
 PINNED COMMENT (optional)
