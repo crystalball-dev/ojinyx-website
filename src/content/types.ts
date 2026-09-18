@@ -51,6 +51,22 @@ export interface CoverVideo {
   duration?: number;
 }
 
+/** A music video for a release, embedded on its page. */
+export interface ReleaseVideo {
+  /**
+   * Anything YouTube gives you: the share link, the address bar, or a bare
+   * id. `youTubeId` normalizes it, and an unparseable value hides the video
+   * rather than rendering an empty player.
+   */
+  youtube: string;
+  /** House style: song titles are allcaps, e.g. "SNOW WHITE". */
+  title: string;
+  /** Optional line under the title, e.g. "Official video". */
+  note?: string;
+  /** Local poster under /public. Defaults to YouTube's own thumbnail. */
+  poster?: string;
+}
+
 export interface Release {
   /**
    * URL segment: /releases/[slug]. Lowercase, hyphenated. Must match the
@@ -78,6 +94,8 @@ export interface Release {
   tracks?: Track[];
   /** Streaming / store URLs. Omit a service to hide its button. */
   links?: Partial<Record<StreamingService, string>>;
+  /** Music videos, shown above the tracklist. Omit for releases without one. */
+  videos?: ReleaseVideo[];
   /** Universal smart link (e.g. song.link / linktr.ee) used as the fallback CTA. */
   smartLink?: string;
   credits?: string[];

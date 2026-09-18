@@ -30,6 +30,13 @@ export const releases: Release[] = [
       apple: "https://music.apple.com/album/kingdoms/6810581906",
       youtubeMusic: "https://music.youtube.com/browse/MPREb_pArK3N0e0dO",
     },
+    videos: [
+      {
+        youtube: "https://www.youtube.com/watch?v=5b_eGQbQhGM",
+        title: "SNOW WHITE",
+        note: "Official video",
+      },
+    ],
     tracks: [
       { title: "SNOW WHITE", duration: "3:25" },
       { title: "WIPED OUT", duration: "2:29" },

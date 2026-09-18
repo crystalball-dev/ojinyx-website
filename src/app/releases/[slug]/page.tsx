@@ -11,6 +11,7 @@ import { StreamLinks } from "@/components/stream-links";
 import { Swatches } from "@/components/swatches";
 import { TiltCard } from "@/components/tilt-card";
 import { Tracklist } from "@/components/tracklist";
+import { YouTubeEmbed } from "@/components/youtube-embed";
 import { site } from "@/content/site";
 import { getCoverMedia, getMarkGradient } from "@/lib/covers";
 import { getCoverTheme } from "@/lib/palette";
@@ -24,7 +25,8 @@ import {
   releaseYear,
   sortedReleases,
 } from "@/lib/releases";
-import { safeJsonLd } from "@/lib/utils";
+import { cn, safeJsonLd } from "@/lib/utils";
+import { youTubeId } from "@/lib/youtube";
 
 type Props = PageProps<"/releases/[slug]">;
 
@@ -71,6 +73,14 @@ export default async function ReleasePage({ params }: Props) {
   const media = getCoverMedia(release);
   const { palette, cover } = await getCoverTheme(media.poster, release.slug);
   const { prev, next } = adjacentReleases(release.slug);
+
+  // Anything whose URL does not parse is dropped here rather than rendered as
+  // an empty player — a typo in the content file costs a missing section, not
+  // a broken page.
+  const videos = (release.videos ?? []).flatMap((v) => {
+    const id = youTubeId(v.youtube);
+    return id ? [{ ...v, id }] : [];
+  });
   const typeLabel = RELEASE_TYPE_LABEL[release.type];
   const upcoming = !release.releaseDate;
   const imprint = releaseLabel(release);
@@ -152,6 +162,19 @@ export default async function ReleasePage({ params }: Props) {
             reverse
           />
         </div>
+
+        {/* Music video — above the tracklist, because on a new release this is
+            what someone arriving from a link came to see. */}
+        {videos.length ? (
+          <Reveal className="mt-20">
+            <h2 className="label mb-6 text-muted">{videos.length === 1 ? "Video" : `Videos · ${videos.length}`}</h2>
+            <div className={cn("grid gap-8", videos.length > 1 && "lg:grid-cols-2")}>
+              {videos.map((v) => (
+                <YouTubeEmbed key={v.id} id={v.id} title={v.title} note={v.note} poster={v.poster} fallbackLabel={release.title} />
+              ))}
+            </div>
+          </Reveal>
+        ) : null}
 
         {/* Body */}
         <div className="mt-20 grid gap-16 md:grid-cols-12">
