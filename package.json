@@ -13,7 +13,8 @@
     "genius-banner": "node scripts/make-genius-banner.mjs",
     "soundcloud-banner": "node scripts/make-soundcloud-banner.mjs",
     "youtube-banner": "node scripts/make-youtube-banner.mjs",
-    "cards": "node scripts/make-kingdoms-cards.mjs"
+    "cards": "node scripts/make-kingdoms-cards.mjs",
+    "thumbnail": "node scripts/make-video-thumbnail.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
