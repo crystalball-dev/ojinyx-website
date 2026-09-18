@@ -51,3 +51,8 @@ next-env.d.ts
 # Rendered social clips — tens of MB each, and regenerable from
 # scripts/make-clip.mjs plus the master in _VIDEOS. The script is the source.
 brand-art/clips/
+
+# The 18MB full-size cover reproduction and the matte diagnostic. Both come
+# back from `npm run split-cover` against the master in _ANIMATIONS.
+brand-art/kingdoms-assets/cover-4000.png
+brand-art/kingdoms-assets/castle-matte.png
