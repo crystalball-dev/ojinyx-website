@@ -82,6 +82,14 @@ const LOGO_CUT = arg("logo", 168);
  * more back than was added trims that halo off.
  */
 const ERODE = arg("erode", 4.2);
+/**
+ * Brightness ceiling. The local-contrast test alone accepts the bright mist
+ * beside the crown tower, because the moon behind it is brighter still and the
+ * mist is therefore "darker than its background". Capping absolute luminance
+ * drops it. The castle's own lit faces and windows sit above this too, but they
+ * are enclosed, so fillHoles puts them back.
+ */
+const LUMA_CAP = arg("cap", 150);
 
 await mkdir(OUT, { recursive: true });
 
@@ -122,11 +130,15 @@ const CASTLE_SPAN = [
   { y: 300, x0: 350, x1: 585 },
   { y: 385, x0: 290, x1: 650 },
   { y: 425, x0: 243, x1: 678 },
-  { y: 500, x0: 265, x1: 660 },
-  { y: 530, x0: 300, x1: 620 },
-  { y: 570, x0: 330, x1: 590 },
-  { y: 610, x0: 350, x1: 570 },
-  { y: 648, x0: 375, x1: 545 },
+  // Below the ramparts these are traced off a gridded render of the island
+  // rather than guessed, because nothing in the pixels marks its edge.
+  { y: 494, x0: 252, x1: 671 },
+  { y: 516, x0: 256, x1: 666 },
+  { y: 539, x0: 263, x1: 626 },
+  { y: 561, x0: 279, x1: 594 },
+  { y: 584, x0: 288, x1: 574 },
+  { y: 606, x0: 311, x1: 563 },
+  { y: 634, x0: 333, x1: 536 },
 ];
 
 /** Linear interpolation across CASTLE_SPAN, in mask-space pixels. */
@@ -152,7 +164,7 @@ for (let y = 0; y < M; y++) {
   for (let x = 0; x < M; x++) {
     const i = y * M + x;
     if (!inside(x, y)) continue;
-    if (bg[i] - small[i] >= CASTLE_DELTA) mask[i] = 255;
+    if (small[i] <= LUMA_CAP && bg[i] - small[i] >= CASTLE_DELTA) mask[i] = 255;
   }
 }
 
@@ -268,8 +280,8 @@ const castleAlpha = new Uint8Array(
 // Starts below the drips, not through them. At 560 this ramp was erasing most
 // of the island — the rock fingers live between 540 and 630, and fading from
 // the top of that range took them with it.
-const fogTop = s(612);
-const fogEnd = s(652);
+const fogTop = s(622);
+const fogEnd = s(648);
 for (let y = fogTop; y < N; y++) {
   const k = y >= fogEnd ? 0 : 1 - (y - fogTop) / (fogEnd - fogTop);
   const row = y * N;
