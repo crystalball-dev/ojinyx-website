@@ -18,7 +18,8 @@
     "clip": "node scripts/make-clip.mjs",
     "split-cover": "node scripts/split-kingdoms-cover.mjs",
     "lockup": "node scripts/make-kingdoms-lockup.mjs",
-    "fronts": "node scripts/make-front-options.mjs"
+    "fronts": "node scripts/make-front-options.mjs",
+    "slashed": "node scripts/make-slashed-wordmark.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

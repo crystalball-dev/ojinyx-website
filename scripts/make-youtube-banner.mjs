@@ -120,7 +120,10 @@ function markSvg({ pathData, viewBox, stops, box, stroke }) {
   const paint =
     stroke > 0
       ? `fill="none" stroke="url(#m)" stroke-width="${stroke}" stroke-linejoin="round" stroke-linecap="round"`
-      : `fill="url(#m)"`;
+      // The wordmark's counters are wound the same way as their outers, so a
+      // filled render needs evenodd; under the default nonzero the o closes up
+      // into a solid hexagon.
+      : `fill="url(#m)" fill-rule="evenodd"`;
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
   <defs><linearGradient id="m" x1="0" y1="0.2" x2="1" y2="0.62">
 ${stops.map((s, i) => `    <stop offset="${offsets[i].toFixed(1)}%" stop-color="${esc(s)}"/>`).join("\n")}

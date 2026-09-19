@@ -144,7 +144,7 @@ function markSvg({ pathData, viewBox, stops, box, stroke = STROKE_UNITS }) {
 ${stops.map((s, i) => `    <stop offset="${offsets[i].toFixed(1)}%" stop-color="${esc(s)}"/>`).join("\n")}
   </linearGradient></defs>
   <g transform="translate(${box.x} ${box.y}) scale(${scale}) translate(${-vx} ${-vy})">
-    <path d="${pathData}" ${stroke > 0 ? `fill="none" stroke="url(#m)" stroke-width="${stroke}" stroke-linejoin="round" stroke-linecap="round"` : `fill="url(#m)"`}/>
+    <path d="${pathData}" ${stroke > 0 ? `fill="none" stroke="url(#m)" stroke-width="${stroke}" stroke-linejoin="round" stroke-linecap="round"` : `fill="url(#m)" fill-rule="evenodd"`}/>
   </g>
 </svg>`;
 }
