@@ -20,6 +20,10 @@ export const site = {
   name: "ojinyx",
   /** The imprint everything is published under. Allcaps. */
   label: "OPERATION FAIRWAY",
+  /** The label's own site. Linked from the footer, the hero and the home page stamp. */
+  labelUrl: "https://operationfairway.org",
+  /** The company behind the label (OPERATION FAIRWAY, LLC, Alaska), for the copyright line and structured data. */
+  labelLegalName: "OPERATION FAIRWAY, LLC",
   /** Canonical URL. Override per-environment with NEXT_PUBLIC_SITE_URL. */
   url: (process.env.NEXT_PUBLIC_SITE_URL || "https://ojinyx.com").replace(/\/$/, ""),
   /** One-line hook, shown beside the hero and used in page titles. */

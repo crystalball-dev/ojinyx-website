@@ -96,7 +96,7 @@ export default async function ReleasePage({ params }: Props) {
     description: release.description,
     url: `${site.url}/releases/${release.slug}`,
     byArtist: { "@type": "MusicGroup", name: site.name, url: site.url },
-    recordLabel: { "@type": "Organization", name: imprint },
+    recordLabel: { "@type": "Organization", name: imprint, url: imprint === site.label ? site.labelUrl : undefined },
     numTracks: release.tracks?.length,
     track: release.tracks?.map((t, i) => ({ "@type": "MusicRecording", name: t.title, position: i + 1 })),
   };

@@ -62,7 +62,9 @@ export default async function HomePage() {
           <div className="hero-side-left gutter flex flex-col gap-3">
             <span className="label text-muted">{site.genres.join(" · ")}</span>
             <p className="display max-w-md text-[clamp(1.25rem,1.9vw,1.75rem)] tracking-tight">{site.tagline}</p>
-            <span className="label text-accent">{site.label}</span>
+            <a href={site.labelUrl} target="_blank" rel="noreferrer" className="label text-accent underline-offset-4 hover:underline">
+              {site.label} <span aria-hidden="true">↗</span>
+            </a>
           </div>
 
           <div className="hero-video-box relative">
@@ -184,7 +186,15 @@ export default async function HomePage() {
             ))}
             <p className="display mt-2 text-[clamp(1.5rem,3.2vw,2.75rem)] leading-tight text-accent">{site.refrain}</p>
             <div className="mt-4 flex items-center gap-6">
-              <LabelBadge text={site.label} className="size-28 shrink-0 text-accent-2 md:size-32" />
+              <a
+                href={site.labelUrl}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={site.label + " — label site"}
+                className="shrink-0 transition-transform duration-500 ease-[var(--ease-out-expo)] hover:scale-105"
+              >
+                <LabelBadge text={site.label} className="size-28 text-accent-2 md:size-32" />
+              </a>
               {site.location ? <span className="label text-muted">{site.location}</span> : null}
             </div>
           </Reveal>

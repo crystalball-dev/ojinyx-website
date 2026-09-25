@@ -62,7 +62,7 @@ const musicGroupJsonLd = {
   genre: site.genres,
   email: site.email,
   description: site.bio.join(" "),
-  memberOf: { "@type": "Organization", name: site.label },
+  memberOf: { "@type": "Organization", name: site.label, legalName: site.labelLegalName, url: site.labelUrl },
   sameAs: site.socials.map((s) => s.href),
 };
 

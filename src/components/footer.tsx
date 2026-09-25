@@ -53,13 +53,15 @@ export function Footer() {
               {site.email}
             </a>
             <p className="label mt-5 text-muted">Released through</p>
-            <p className="display mt-2 text-2xl text-accent">{site.label}</p>
+            <a href={site.labelUrl} target="_blank" rel="noreferrer" className="display mt-2 inline-block text-2xl text-accent underline-offset-8 hover:underline">
+              {site.label} <span aria-hidden="true">↗</span>
+            </a>
             {site.location ? <p className="mt-3 text-muted">{site.location}</p> : null}
           </div>
         </div>
 
         <p className="mt-14 text-xs uppercase tracking-[0.14em] text-muted">
-          © {year} <span className="normal-case">{site.name}</span> · {site.label} · All rights reserved.
+          © {year} <span className="normal-case">{site.name}</span> · {site.labelLegalName} · All rights reserved.
         </p>
       </div>
     </footer>
